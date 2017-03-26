@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="vishal.master_hackthon.Geo_tag_exam_conduct">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="#f71a1a">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="#fff"
+        android:textAlignment="center"
+        android:text="Faculty Name"/>
+
+
+</LinearLayout>
+<LinearLayout
+    android:layout_marginTop="60dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/l2">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exam Name "
+        android:textSize="25dp"
+        android:background="#f0f0f0"
+        android:textColor="#000"
+        android:textAlignment="center"/>
+</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l2"
+        android:id="@+id/r1"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="#f0f0f0"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:onClick="notified"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:text="Geo Tagging"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/r1">
+
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="time"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:background="#f0f0f0"
+            android:layout_above="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_marginBottom="70dp"
+            android:id="@+id/textView4"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="time"
+            android:background="#f0f0f0"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:id="@+id/textView3"/>
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:text="time"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="71dp"
+            android:background="#f0f0f0"
+            android:layout_marginStart="71dp"
+            android:layout_marginBottom="84dp"
+            android:id="@+id/textView2"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/camera"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/imageView3"
+            android:layout_alignStart="@+id/imageView3"/>
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/camera"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignLeft="@+id/imageView2"
+            android:layout_alignStart="@+id/imageView2"
+            android:id="@+id/imageView3"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/camera"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:id="@+id/imageView2"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vishal.master_hackthon.Faculty_evaluators_OSDS"
+    android:background="#f0f0f0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="#f0f0"
+        android:id="@+id/l1">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:text="Faculty_Name"
+            android:textColor="#000"/>
+        
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/l1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:paddingTop="5dp"
+                android:layout_margin="25dp"
+                android:text="Current Exam DUTY"/>
+
+
+            <Button
+                android:layout_marginTop="85dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Exam Name"
+                android:onClick="exam_name"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:background="#f71a1a"/>
+
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:textColor="#000"
+                android:textAlignment="center"
+                android:text="Payment Status"/>
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+    
+    
+</RelativeLayout>
