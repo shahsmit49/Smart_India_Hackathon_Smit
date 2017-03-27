@@ -8,19 +8,17 @@
     android:layout_height="match_parent"
     tools:context="vishal.master_hackthon.MainActivity">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp">
+        android:padding="25dp">
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:text="UNIVERSITY/COLLEGE/school/LOGIN"
             android:background="#38f515"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:onClick="college_school_login"
             android:id="@+id/textView"
             android:layout_alignParentTop="true"
@@ -32,14 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="evaluators_faculty_login"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:background="#33B8FF"
             android:text="FACULTY/ TEACHER/ EVALUATORS/ OSDS LOGIN"
             android:layout_marginTop="97dp"
             android:layout_below="@+id/textView"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
-
     </RelativeLayout>
 
 

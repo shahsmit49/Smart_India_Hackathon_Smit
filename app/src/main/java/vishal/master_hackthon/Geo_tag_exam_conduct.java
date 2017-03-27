@@ -3,6 +3,7 @@ package vishal.master_hackthon;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_tag_exam_conduct);
+
     }
 
     public void notif(View view) {
@@ -23,5 +25,10 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
 
         notify.flags |= Notification.FLAG_AUTO_CANCEL;
         notif.notify(0, notify);
+    }
+
+    public void time1(View view) {
+        Intent time1 = new Intent(Geo_tag_exam_conduct.this,Upload_to_server.class);
+        startActivity(time1);
     }
 }

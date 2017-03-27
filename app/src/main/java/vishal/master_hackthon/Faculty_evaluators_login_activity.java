@@ -66,7 +66,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                final JSONObject jsonObject = new JSONObject();
+            final JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put(KEY_EMAIL, mEmailView.getText().toString());
                     jsonObject.put(KEY_PASSWORD, mPasswordView.getText().toString());
@@ -78,29 +78,37 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                 //----------------Login request--------------------
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.POST, "http://192.168.0.6:8000/auth/login", jsonObject,new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Log.d("response", response.toString());
-                                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                try {
-                                    response = jsonObject.getString("status");
-                                    Log.d("response",jsonObject.getString("status"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(getApplicationContext(), error.toString()+"Error on response", Toast.LENGTH_LONG).show();
-                                Log.d("Error", error.toString());
-                                NetworkResponse response = error.networkResponse;
-                                if(response != null && response.data != null){
-                                    Log.d("ERROR_MESSAGE", String.valueOf(response.data));
-                                }
-                            }
-                        })
+                (Request.Method.POST, "http://192.168.222.121:8000/auth/login", jsonObject,new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("response", response.toString());
+                        try {
+                             Log.d("yoo",response.getString("status"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class).putExtra("KEY_StringName","well got"));
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        try {
+                            response = jsonObject.getString("status");
+                            Log.d("response",jsonObject.getString("status"));
+                            Toast.makeText(Faculty_evaluators_login_activity.this,response+"fail",Toast.LENGTH_LONG).show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(getApplicationContext(), error.toString()+"Error on response", Toast.LENGTH_LONG).show();
+                        Log.d("Error", error.toString());
+                        NetworkResponse response = error.networkResponse;
+                        if(response != null && response.data != null){
+                            Log.d("ERROR_MESSAGE", String.valueOf(response.data));
+                        }
+                    }
+                })
                 {
                     @Override
                     public Map<String, String> getHeaders() throws AuthFailureError {
@@ -111,32 +119,36 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                     }
                 };
 
-//               {
-//                    @Override
-//                    protected Map<String,String> getParams(){
-//                        Map<String,String> params = new HashMap<String, String>();
-// //                       params.put(KEY_PASSWORD,password);
-//                        params.put(KEY_EMAIL, email);
-//                        return params;
-//                    }
-//                };
-
                 registerQueue = Volley.newRequestQueue(getApplicationContext());
                 registerQueue.add(jsonObjectRequest);
-                if(response=="success"){
-                    Intent login = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_OSDS.class);
-                    startActivity(login);
-                }
+
             }
         });
 //
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+//        private void openProfile(){
+//            Intent intent = new Intent(this, Faculty_evaluators_OSDS.class);
+//           intent.putExtra(KEY_USERNAME, username);
+//            startActivity(intent);
+//        }
+
+
+    }
+
+    public void geotag(View view) {
+        Intent i = new Intent(Faculty_evaluators_login_activity.this,Geo_Tag.class);
+        startActivity(i);
+    }
+
+    public void bypass(View view) {
+        Intent gro = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_OSDS.class);
+        startActivity(gro);
+
     }
 
 //    public void geo(View view) {
-//        Intent gro = new Intent(LoginActivity.this,Geo_Tag.class);
-//        startActivity(gro);
 //    }
 
 //    public void uparloading(View view) {

@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="vishal.master_hackthon">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.hardware.gps"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -20,6 +24,8 @@
         </activity>
         <activity android:name=".exam_center_university_School_Name">
         </activity>
+        <activity android:name=".Upload_to_server">
+        </activity>
         <activity android:name=".Faculty_evaluators_login_activity">
         </activity>
         <activity android:name=".Faculty_evaluators_OSDS">
@@ -30,8 +36,8 @@
         </activity>
         <activity android:name=".LoginActivity">
         </activity>
-
-
+        <activity android:name=".Payment_Status">
+        </activity>
     </application>
 
 </manifest>
