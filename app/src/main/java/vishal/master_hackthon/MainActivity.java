@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         /********** get Gps location service LocationManager object ***********/
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         Log.d("GPS","Turned On");
 //        Toast.makeText(getBaseContext(), "Gps turned on ", Toast.LENGTH_LONG).show();
     }

@@ -86,8 +86,8 @@ public class Geo_Tag extends ActionBarActivity {
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("deanEmail", "MayankJ@gmail.com");
-            jsonObject.put("androidLat", "21.133293");
-            jsonObject.put("androidLng", "72.718129");
+            jsonObject.put("androidLat", "21.132759");
+            jsonObject.put("androidLng", "72.715848");
 
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
@@ -97,7 +97,7 @@ public class Geo_Tag extends ActionBarActivity {
         //----------------Login request--------------------
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, "http://192.168.0.4:8000/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, "http://192.168.222.126:8000/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());

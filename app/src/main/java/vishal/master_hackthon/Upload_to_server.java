@@ -55,6 +55,7 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private String KEY_DESC = "desc";
     String email ;
     String mCurrentPhotoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +77,6 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
             gps.getLocation();
             // check if GPS enabled
             if(gps.canGetLocation()){
-
 
             String lat = gps.getLatitude();
                 Log.d("latitude",gps.getLatitude());
@@ -103,6 +103,7 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
             uploadImage();
         }
     }
+
     private void uploadImage(){
         Log.d("uploading",""); //Log.d("Lat",l);
         //Showing the progress dialog
@@ -170,6 +171,7 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
             }
         }
         if (requestCode == 100 && resultCode == RESULT_OK) {
+            Log.d("camera","2");
             setPic();
         }
 
@@ -184,7 +186,6 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         return encodedImage;
     }
 
-
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -193,24 +194,30 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     }
 
     public void camera(View view) {
+        Log.d("camera","1");
         captureImage();
+        Log.d("camera","3");
+
     }
-
-
     private void captureImage() {
+        Log.d("camera","2");
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
+            Log.d("camera","3");
             File photoFile = null;
             try {
                 photoFile = createImageFile();
+                Log.d("camera","4");
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 ex.printStackTrace();
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
+                Log.d("camera","5");
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, 100);
@@ -218,10 +225,9 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         }
     }
 
-
-
     private void setPic() {
         // Get the dimensions of the View
+        Log.d("camera","8");
         int targetW = mImageView.getWidth();
         int targetH = mImageView.getHeight();
 
@@ -263,8 +269,4 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         Log.e("Getpath", "Cool" + mCurrentPhotoPath);
         return image;
     }
-
-
-
-
 }

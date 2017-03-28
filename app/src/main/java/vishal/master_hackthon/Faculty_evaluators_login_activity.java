@@ -1,6 +1,7 @@
 package vishal.master_hackthon;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -43,7 +44,8 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     private String token=null;
     String response;
     private String EmailVariable;
-
+    boolean user_login_status = false;
+    public static final String PREFS_NAME = "LoginPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,53 +67,76 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
             public void onClick(View view) {
 
-
-            final JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put(KEY_EMAIL, mEmailView.getText().toString());
-                    jsonObject.put(KEY_PASSWORD, mPasswordView.getText().toString());
-                    Log.d("Testing", "Inside Try");
-                } catch (JSONException e) {
-                    Log.d("Testing", "Inside Try");
-                    e.printStackTrace();
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                if (settings.getString("logged", "").toString().equals("logged")) {
+                    Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class);
+                    startActivity(intent);
                 }
-                //----------------Login request--------------------
+                else {
 
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, "http://192.168.0.4:8000/auth/login", jsonObject,new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("response", response.toString());
-                        try {
-                             Log.d("CC",response.getString("status"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    final JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put(KEY_EMAIL, mEmailView.getText().toString());
+                        jsonObject.put(KEY_PASSWORD, mPasswordView.getText().toString());
+                        Log.d("Testing", "Inside Try");
+                    } catch (JSONException e) {
+                        Log.d("Testing", "Inside Try");
+                        e.printStackTrace();
+                    }
+                    //----------------Login request--------------------
+
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                            (Request.Method.POST, "http://192.168.222.126:8000/auth/login", jsonObject, new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.d("response", response.toString());
+                                    try {
+                                        Log.d("CC", response.getString("status"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        if (response.getString("status").equals("success")) {
+                                            user_login_status = true;
+                                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                                            SharedPreferences.Editor editor = settings.edit();
+                                            editor.putString("logged", "logged");
+                                            editor.commit();
+
+                                            Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class);
+                                            startActivity(intent);
+                                        } else if (response.getString("Status").equals("Failure")) {
+                                            Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                                    //                   startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class));
+                                }
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
+                                    Log.d("BC", error.toString());
+                                }
+                            }) {
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String, String> header = new HashMap<String, String>();
+                            header.put("Content-Type", "application/json");
+                            header.put("X-CSRF-TOKEN", token);
+                            return header;
                         }
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-     //                   startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class));
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString()+"Error on response", Toast.LENGTH_LONG).show();
-                        Log.d("BC", error.toString());
-                    }
-                })
-                {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> header = new HashMap<String, String>();
-                        header.put("Content-Type", "application/json");
-                        header.put("X-CSRF-TOKEN", token);
-                        return header;
-                    }
-                };
+                    };
+                    registerQueue = Volley.newRequestQueue(getApplicationContext());
+                    registerQueue.add(jsonObjectRequest);
+                }
+                }
+            });
 
-                registerQueue = Volley.newRequestQueue(getApplicationContext());
-                registerQueue.add(jsonObjectRequest);
 
-            }
-        });
 //
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -130,9 +155,9 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     }
 
     public void bypass(View view) {
+        EmailVariable = mEmailView.getText().toString();
         Intent gro = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_OSDS.class);
         startActivity(gro);
-
     }
 
     public String getEmailVariable() {
