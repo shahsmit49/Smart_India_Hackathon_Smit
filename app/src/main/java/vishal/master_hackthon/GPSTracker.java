@@ -29,6 +29,8 @@ public class GPSTracker extends Service implements LocationListener {
     // flag for GPS status
     boolean canGetLocation = false;
 
+    String maininfo;
+
     Location location,location1,location2; // location
     double latitude; // latitude
     double longitude; // longitude
@@ -180,24 +182,51 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to get latitude
      * */
 
-    public void getLatitude()
-    {
-        if(location != null)
-        {
+    public String getLatitude() {
+        if (location != null) {
+            if (location != null) {
 
-            if(location.isFromMockProvider())
-            {
-                Toast.makeText(mContext,"Location is mock location provider not allowed",Toast.LENGTH_LONG).show();
-                ((Activity)mContext).finish();
+                if (location.isFromMockProvider()) {
+                    Toast.makeText(mContext, "Location is mock location provider not allowed", Toast.LENGTH_LONG).show();
+                    ((Activity) mContext).finish();
+                } else {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+//                Toast.makeText(mContext, "Your Location is - \nLat: "
+//                        + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
+                    maininfo = latitude + "," + longitude;
+
+                }
             }
-            else
-            {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                Toast.makeText(mContext, "Your Location is - \nLat: "
-                        + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            if (location == null) {
+                progress = new ProgressDialog(mContext);
+                progress.setMessage("Getting Location........");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setIndeterminate(true);
+                progress.show();
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            while (location == null) {
+                                Thread.sleep(200);               //code here
+
+                                getLocation();
+                                if (location != null) {
+                                    progress.dismiss();
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                //progress.dismiss();
             }
+
         }
+        return  maininfo;
+    }
 //        if(location==null) {
 //            progress = new ProgressDialog(mContext);
 //            progress.setMessage("Getting Location");
@@ -213,7 +242,7 @@ public class GPSTracker extends Service implements LocationListener {
 //            progress.dismiss();
 //        }
 
-    }
+  //  }
 
     /**
      * Function to get longitude
@@ -253,8 +282,9 @@ public class GPSTracker extends Service implements LocationListener {
      * On pressing Settings button will lauch Settings Options
      * */
 
-    public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+    public void showSettingsAlert()
+    {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
         alertDialog.setTitle("GPS is settings");
@@ -274,6 +304,11 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+                Intent intent=new Intent(GPSTracker.this,Geo_tag_exam_conduct.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 

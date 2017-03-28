@@ -44,7 +44,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private ImageView mImageView;
     private EditText editTextName;
     private Bitmap bitmap;
-
+    String sss=null;
 GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -55,7 +55,8 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private String KEY_DESC = "desc";
     String mCurrentPhotoPath;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
 
@@ -69,23 +70,69 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         /************************************************/
                //         GPS
         /*************************************************/
-        {
+
             gps.getLocation();
             // check if GPS enabled
-            if(gps.canGetLocation()){
-                gps.getLatitude();
-                //double longitude = gps.getLongitude();
-                // \n is for new line
-            }
-            else
+
+            //while (sss == null)
             {
-                // can't get location
-                // GPS or Network is not enabled
-                // Ask user to enable GPS/network in settings
-                gps.showSettingsAlert();
+                if (gps.canGetLocation()) {
+                    sss = gps.getLatitude();
+
+                    String abc[] = sss.split(",");
+                    String def = abc[0];
+                    String ghi = abc[1];
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                            + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
+                    Log.d("lat", def);
+                    Log.d("long", ghi);
+                    //double longitude = gps.getLongitude();
+                    // \n is for new line
+                }
+                else
+                {
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
             }
+
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        while (sss==null) {
+//                            Thread.sleep(2000);               //code here
+//
+//                            if (gps.canGetLocation())
+//                            {
+//                                sss = gps.getLatitude();
+//
+//                                String abc[] = sss.split(",");
+//                                String def = abc[0];
+//                                String ghi = abc[1];
+//                                Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+//                                        + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
+//                                Log.d("lat", def);
+//                                Log.d("long", ghi);
+//                                //double longitude = gps.getLongitude();
+//                                // \n is for new line
+//                            }
+//                            else
+//                            {
+//                                // can't get location
+//                                // GPS or Network is not enabled
+//                                // Ask user to enable GPS/network in settings
+//                                gps.showSettingsAlert();
+//                            }
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//        }
         }
-    }
 
     @Override
     public void onClick(View v) {
