@@ -42,6 +42,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     private String KEY_PASSWORD = "password";
     private String token=null;
     String response;
+    private String EmailVariable;
 
 
     @Override
@@ -54,7 +55,6 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
-        Button geotag = (Button) findViewById(R.id.geotag);
         final String email = mEmailView.getText().toString();
         final String password = mPasswordView.getText().toString();
 
@@ -78,35 +78,23 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                 //----------------Login request--------------------
 
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, "http://192.168.222.121:8000/auth/login", jsonObject,new Response.Listener<JSONObject>() {
+                (Request.Method.POST, "http://192.168.0.4:8000/auth/login", jsonObject,new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
                         try {
-                             Log.d("yoo",response.getString("status"));
+                             Log.d("CC",response.getString("status"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class).putExtra("KEY_StringName","well got"));
+     //                   startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class));
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        try {
-                            response = jsonObject.getString("status");
-                            Log.d("response",jsonObject.getString("status"));
-                            Toast.makeText(Faculty_evaluators_login_activity.this,response+"fail",Toast.LENGTH_LONG).show();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                         Toast.makeText(getApplicationContext(), error.toString()+"Error on response", Toast.LENGTH_LONG).show();
-                        Log.d("Error", error.toString());
-                        NetworkResponse response = error.networkResponse;
-                        if(response != null && response.data != null){
-                            Log.d("ERROR_MESSAGE", String.valueOf(response.data));
-                        }
+                        Log.d("BC", error.toString());
                     }
                 })
                 {
@@ -134,7 +122,6 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
 
-
     }
 
     public void geotag(View view) {
@@ -148,11 +135,11 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
     }
 
-//    public void geo(View view) {
-//    }
+    public String getEmailVariable() {
+        return EmailVariable;
+    }
 
-//    public void uparloading(View view) {
-//        Intent gro1 = new Intent(LoginActivity.this,Upload_to_server.class);
-//        startActivity(gro1);
-//    }
+    public void setEmailVariable(String emailVariable) {
+        EmailVariable = emailVariable;
+    }
 }

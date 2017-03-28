@@ -53,11 +53,14 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
+    String email ;
     String mCurrentPhotoPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
+        Faculty_evaluators_login_activity login = new Faculty_evaluators_login_activity();
+        email=login.getEmailVariable();
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
@@ -73,8 +76,11 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
             gps.getLocation();
             // check if GPS enabled
             if(gps.canGetLocation()){
-                gps.getLatitude();
-                //double longitude = gps.getLongitude();
+
+
+            String lat = gps.getLatitude();
+                Log.d("latitude",gps.getLatitude());
+//                double longitude = gps.getLongitude();
                 // \n is for new line
             }
             else
@@ -98,6 +104,7 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         }
     }
     private void uploadImage(){
+        Log.d("uploading",""); //Log.d("Lat",l);
         //Showing the progress dialog
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,

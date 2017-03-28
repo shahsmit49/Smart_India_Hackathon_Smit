@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void college_school_login(View view) {
-        Intent i = new Intent(MainActivity.this,exam_center_university_School_Name.class);
+        Intent i = new Intent(MainActivity.this,Geo_Tag.class);
         startActivity(i);
 
     }

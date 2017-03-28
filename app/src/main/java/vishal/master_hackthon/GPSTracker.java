@@ -180,7 +180,7 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to get latitude
      * */
 
-    public void getLatitude()
+    public String getLatitude()
     {
         if(location != null)
         {
@@ -213,6 +213,7 @@ public class GPSTracker extends Service implements LocationListener {
 //            progress.dismiss();
 //        }
 
+        return null;
     }
 
     /**

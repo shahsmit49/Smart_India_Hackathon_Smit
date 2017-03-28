@@ -85,9 +85,9 @@ public class Geo_Tag extends ActionBarActivity {
     public void clickkk(View view) {
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("deanEmail", "dfkdsjbgf");
-            jsonObject.put("androidLat", "21.758566");
-            jsonObject.put("androidLng", "72.115454");
+            jsonObject.put("deanEmail", "MayankJ@gmail.com");
+            jsonObject.put("androidLat", "21.133293");
+            jsonObject.put("androidLng", "72.718129");
 
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
@@ -97,10 +97,15 @@ public class Geo_Tag extends ActionBarActivity {
         //----------------Login request--------------------
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, "http://192.168.222.121:8000/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, "http://192.168.0.4:8000/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
+                        try {
+                            Log.d("yoo",response.getString("status"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
@@ -108,16 +113,12 @@ public class Geo_Tag extends ActionBarActivity {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
                         Log.d("Error", error.toString());
-                        NetworkResponse response = error.networkResponse;
-                        if (response != null && response.data != null) {
-                            Log.d("ERROR_MESSAGE", String.valueOf(response.data));
-                        }
                     }
                 }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<String, String>();
-                header.put("Content-Type", "application/json");
+                header.put("Content-Type","application/json");
                 header.put("X-CSRF-TOKEN", token);
                 return header;
             }
