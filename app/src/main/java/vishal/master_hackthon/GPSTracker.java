@@ -304,6 +304,8 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+
+
                 Intent intent=new Intent(GPSTracker.this,Geo_tag_exam_conduct.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

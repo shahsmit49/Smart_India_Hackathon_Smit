@@ -76,6 +76,8 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
 
             //while (sss == null)
             {
+
+
                 if (gps.canGetLocation()) {
                     sss = gps.getLatitude();
 
