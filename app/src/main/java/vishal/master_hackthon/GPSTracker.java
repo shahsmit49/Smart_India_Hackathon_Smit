@@ -284,6 +284,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     public void showSettingsAlert()
     {
+
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
