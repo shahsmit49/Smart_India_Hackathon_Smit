@@ -44,7 +44,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private ImageView mImageView;
     private EditText editTextName;
     private Bitmap bitmap;
-
+    String sss=null;
 GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private int PICK_IMAGE_REQUEST = 1;
 
@@ -53,15 +53,12 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
-    String email ;
     String mCurrentPhotoPath;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
-        Faculty_evaluators_login_activity login = new Faculty_evaluators_login_activity();
-        email=login.getEmailVariable();
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
@@ -73,25 +70,71 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         /************************************************/
                //         GPS
         /*************************************************/
-        {
+
             gps.getLocation();
             // check if GPS enabled
-            if(gps.canGetLocation()){
 
-            String lat = gps.getLatitude();
-                Log.d("latitude",gps.getLatitude());
-//                double longitude = gps.getLongitude();
-                // \n is for new line
-            }
-            else
+            //while (sss == null)
             {
-                // can't get location
-                // GPS or Network is not enabled
-                // Ask user to enable GPS/network in settings
-                gps.showSettingsAlert();
+
+
+                if (gps.canGetLocation()) {
+                    sss = gps.getLatitude();
+
+                    String abc[] = sss.split(",");
+                    String def = abc[0];
+                    String ghi = abc[1];
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                            + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
+                    Log.d("lat", def);
+                    Log.d("long", ghi);
+                    //double longitude = gps.getLongitude();
+                    // \n is for new line
+                }
+                else
+                {
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
             }
+
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        while (sss==null) {
+//                            Thread.sleep(2000);               //code here
+//
+//                            if (gps.canGetLocation())
+//                            {
+//                                sss = gps.getLatitude();
+//
+//                                String abc[] = sss.split(",");
+//                                String def = abc[0];
+//                                String ghi = abc[1];
+//                                Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+//                                        + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
+//                                Log.d("lat", def);
+//                                Log.d("long", ghi);
+//                                //double longitude = gps.getLongitude();
+//                                // \n is for new line
+//                            }
+//                            else
+//                            {
+//                                // can't get location
+//                                // GPS or Network is not enabled
+//                                // Ask user to enable GPS/network in settings
+//                                gps.showSettingsAlert();
+//                            }
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//        }
         }
-    }
 
     @Override
     public void onClick(View v) {
@@ -103,9 +146,7 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
             uploadImage();
         }
     }
-
     private void uploadImage(){
-        Log.d("uploading",""); //Log.d("Lat",l);
         //Showing the progress dialog
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
@@ -171,7 +212,6 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
             }
         }
         if (requestCode == 100 && resultCode == RESULT_OK) {
-            Log.d("camera","2");
             setPic();
         }
 
@@ -186,6 +226,7 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         return encodedImage;
     }
 
+
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -194,30 +235,24 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     }
 
     public void camera(View view) {
-        Log.d("camera","1");
         captureImage();
-        Log.d("camera","3");
-
     }
-    private void captureImage() {
-        Log.d("camera","2");
 
+
+    private void captureImage() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            Log.d("camera","3");
             File photoFile = null;
             try {
                 photoFile = createImageFile();
-                Log.d("camera","4");
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 ex.printStackTrace();
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Log.d("camera","5");
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, 100);
@@ -225,9 +260,10 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         }
     }
 
+
+
     private void setPic() {
         // Get the dimensions of the View
-        Log.d("camera","8");
         int targetW = mImageView.getWidth();
         int targetH = mImageView.getHeight();
 
@@ -269,4 +305,8 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         Log.e("Getpath", "Cool" + mCurrentPhotoPath);
         return image;
     }
+
+
+
+
 }
