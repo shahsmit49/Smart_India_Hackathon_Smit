@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash_screen">
+        <activity android:name=".Splash_screen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -41,30 +42,53 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".exam_center_university_School_Name">
+        <activity android:name=".exam_center_university_School_Name"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Upload_to_server">
+        <activity android:name=".Upload_to_server"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Faculty_evaluators_login_activity">
+        <activity android:name=".Faculty_evaluators_login_activity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Faculty_evaluators_OSDS">
+        <activity android:name=".Faculty_evaluators_OSDS"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Geo_tag_exam_conduct">
+        <activity android:name=".Geo_tag_exam_conduct"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Geo_Tag">
+        <activity android:name=".Geo_Tag"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Payment_Status">
+        <activity android:name=".Payment_Status"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Faculty_evaluators_count_down">
+        <activity android:name=".Faculty_evaluators_count_down"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".NotificationActivity">
+        <activity android:name=".NotificationActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".exam_center_university_School_Login">
+        <activity android:name=".exam_center_university_School_Login"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".Exam_center_university_details">
+        <activity android:name=".Exam_center_university_details"
+            android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".CeoVerification"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".FingerPrintPrank"
+            android:screenOrientation="portrait">
+        </activity>
+
+
+
     </application>
 
 </manifest>
