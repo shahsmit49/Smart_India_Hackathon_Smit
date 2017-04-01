@@ -193,6 +193,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
 
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, localhost+"/backend/facultyActivity", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
