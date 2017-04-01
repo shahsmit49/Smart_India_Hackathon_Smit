@@ -2,15 +2,21 @@
               xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:orientation="vertical"
               android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin">
+              android:padding="15dp">
 
-
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose Image"
-        android:id="@+id/buttonChoose" />
+        android:textAlignment="center"
+        android:text="count"
+        android:id="@+id/count"
+        android:textSize="18sp"/>
+
+    <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Choose Image"-->
+        <!--android:id="@+id/buttonChoose" />-->
 
 
     <ImageView
@@ -30,13 +36,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload Image"
+        android:layout_marginBottom="6dp"
+        android:textColor="#FFF"
+        android:background="@drawable/rounded_shape"
         android:id="@+id/buttonUpload" />
 
     <Button
         android:layout_width="match_parent"
+        android:paddingTop="8dp"
         android:layout_height="wrap_content"
         android:text="capture pic"
+        android:textColor="#FFF"
         android:id="@+id/camera"
-        android:onClick="camera"/>
+        android:onClick="camera"
+        android:background="@drawable/rounded_shape"/>
 
 </LinearLayout>

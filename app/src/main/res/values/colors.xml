@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="pink">#FF4081</color>
+    <color name="indigo">#9f489b</color>
+    <color name="black">#000</color>
+    <color name="button_bg">#f9982f</color>
+
 </resources>

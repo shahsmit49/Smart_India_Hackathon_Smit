@@ -1,13 +1,16 @@
 package vishal.master_hackthon;//package vishal.hackathon;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -25,8 +29,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,6 +42,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -45,47 +54,110 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private EditText editTextName;
     private Bitmap bitmap;
     String sss=null;
-GPSTracker gps = new GPSTracker(Upload_to_server.this);
+    GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private int PICK_IMAGE_REQUEST = 1;
 
-//    private String UPLOAD_URL ="http://simplifiedcoding.16mb.com/VolleyUpload/upload.php";
+    private String token = null;
+    private RequestQueue registerQueue;
+
+
+    //    private String UPLOAD_URL ="http://simplifiedcoding.16mb.com/VolleyUpload/upload.php";
     private String UPLOAD_URL ="https://vishallog.000webhostapp.com/upload_image.php";
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
     String mCurrentPhotoPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
-
-        buttonChoose = (Button) findViewById(R.id.buttonChoose);
+//        buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
         editTextName = (EditText) findViewById(R.id.editText);
         mImageView  = (ImageView) findViewById(R.id.imageView);
+        TextView counttxt = (TextView)findViewById(R.id.count);
         buttonChoose.setOnClickListener((View.OnClickListener)this);
         buttonUpload.setOnClickListener((View.OnClickListener)this);
+
+        SharedPreferences pref = getSharedPreferences("Email_save", Context.MODE_PRIVATE);
+        String email = pref.getString("email", "");
+        String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
+        final String count = getIntent().getStringExtra("count");
+        counttxt.setText(count);
+
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("deanEmail", email);
+//            jsonObject.put("androidLat", "21.132759");
+//            jsonObject.put("androidLng", "72.715848");
+
+            Log.d("Testing", "Inside Try");
+        } catch (JSONException e) {
+            Log.d("Testing", "Inside Try");
+            e.printStackTrace();
+        }
+        //----------------Login request--------------------
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.POST, localhost+"/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("response", response.toString());
+                        try {
+                            Log.d("maliyo_response",response.getString("status"));
+
+                            /***************succefully uploaded**************************/
+
+                            if(response.getString("status").equals("status")){
+                                Intent myintent=new Intent(Upload_to_server.this, Geo_tag_exam_conduct.class).putExtra("countsuccess", count);
+                                startActivity(myintent);
+                            }
+
+
+                            /**/
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
+                        Log.d("Error", error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<String, String>();
+                header.put("Content-Type","application/json");
+                header.put("X-CSRF-TOKEN", token);
+                return header;
+            }
+        };
+        registerQueue = Volley.newRequestQueue(getApplicationContext());
+        registerQueue.add(jsonObjectRequest);
+
 
         /************************************************/
                //         GPS
         /*************************************************/
-
             gps.getLocation();
             // check if GPS enabled
-
             //while (sss == null)
             {
-
-
                 if (gps.canGetLocation()) {
                     sss = gps.getLatitude();
 
                     String abc[] = sss.split(",");
                     String def = abc[0];
                     String ghi = abc[1];
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-                            + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
                     Log.d("lat", def);
                     Log.d("long", ghi);
                     //double longitude = gps.getLongitude();
@@ -139,13 +211,13 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
     @Override
     public void onClick(View v) {
         if(v == buttonChoose){
-
             showFileChooser();
         }
         if(v == buttonUpload){
             uploadImage();
         }
     }
+
     private void uploadImage(){
         //Showing the progress dialog
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
@@ -260,8 +332,6 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         }
     }
 
-
-
     private void setPic() {
         // Get the dimensions of the View
         int targetW = mImageView.getWidth();
@@ -305,8 +375,5 @@ GPSTracker gps = new GPSTracker(Upload_to_server.this);
         Log.e("Getpath", "Cool" + mCurrentPhotoPath);
         return image;
     }
-
-
-
 
 }

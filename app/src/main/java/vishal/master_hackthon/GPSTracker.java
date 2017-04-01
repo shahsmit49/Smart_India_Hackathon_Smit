@@ -186,10 +186,12 @@ public class GPSTracker extends Service implements LocationListener {
         if (location != null) {
             if (location != null) {
 
-                if (location.isFromMockProvider()) {
-                    Toast.makeText(mContext, "Location is mock location provider not allowed", Toast.LENGTH_LONG).show();
-                    ((Activity) mContext).finish();
-                } else {
+//                if (location.isFromMockProvider())
+//                {
+//                    Toast.makeText(mContext, "Location is mock location provider not allowed", Toast.LENGTH_LONG).show();
+//                    ((Activity) mContext).finish();
+//                } else
+//                    {
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
 //                Toast.makeText(mContext, "Your Location is - \nLat: "
@@ -197,7 +199,7 @@ public class GPSTracker extends Service implements LocationListener {
 
                     maininfo = latitude + "," + longitude;
 
-                }
+     //           }
             }
             if (location == null) {
                 progress = new ProgressDialog(mContext);

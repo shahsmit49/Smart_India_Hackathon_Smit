@@ -1,73 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vishal.master_hackthon.Faculty_evaluators_OSDS"
-    android:background="#f0f0f0">
+    android:background="#f0f0f0"
+    android:orientation="vertical"
+    tools:context="vishal.master_hackthon.Faculty_evaluators_OSDS">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#00acc1"
-        android:id="@+id/l1">
-        
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="Faculty_Name"
-            android:textAlignment="center"
-            android:textColor="#000"/>
-        
-    </LinearLayout>
-    
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/l1">
+
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView5"
+            <LinearLayout
+                android:id="@+id/l1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="25dp"
-                android:paddingTop="5dp"
-                android:text="Current Exam DUTY"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="20dp"/>
+                android:orientation="horizontal"
+                android:padding="10dp">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Name : "
+                    android:textColor="#000"
+                    android:textSize="20sp"/>
 
-            <Button
-                android:layout_marginTop="85dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Exam Name"
-                android:onClick="exam_name"
-                android:textSize="18dp"
-                android:textColor="#fff"
-                android:background="#f71a1a"/>
+                <TextView
+                    android:id="@+id/faculty_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="18sp"/>
 
-            <Button
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:textColor="#000"
-                android:textAlignment="center"
-                android:text="Payment Status"/>
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Exam Duty : "
+                    android:textColor="#000"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/exam_duty"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="18sp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:text="Exam : "
+                    android:textColor="#000"
+                    android:textSize="20sp"/>
+
+                <Button
+                    android:id="@+id/exam_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#15b31d"
+                    android:onClick="exam_name"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="18sp"/>
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/rounded_shape"
+                android:text="Payment Status"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/rounded_shape"
+                android:onClick="logout"
+                android:text="Logout"
+                android:textColor="#fff"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
-    
-    
-</RelativeLayout>
+
+</LinearLayout>

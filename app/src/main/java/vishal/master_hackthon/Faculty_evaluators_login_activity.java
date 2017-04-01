@@ -1,8 +1,11 @@
 package vishal.master_hackthon;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +30,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.R.id.message;
 
 
 /**
@@ -46,7 +50,6 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     private String EmailVariable;
     boolean user_login_status = false;
     public static final String PREFS_NAME = "LoginPrefs";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,29 +57,37 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
         // Add your initialization code here
 
-
-        mEmailView = (EditText) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mEmailView = (EditText) findViewById(R.id.input_email_login);
+        mPasswordView = (EditText) findViewById(R.id.input_password_login);
         final String email = mEmailView.getText().toString();
         final String password = mPasswordView.getText().toString();
+        /**/
+        //
 
+        final SharedPreferences sp = this.getSharedPreferences("user_credential", Context.MODE_PRIVATE);
+
+        /**/
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        if (settings.getString("logged", "").toString().equals("logged")) {
+            Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class);
+            startActivity(intent);
+        }
+
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
 
             public void onClick(View view) {
+                String localhost=getApplicationContext().getResources().getString(R.string.Localhost);
 
-                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                if (settings.getString("logged", "").toString().equals("logged")) {
-                    Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class);
-                    startActivity(intent);
-                }
-                else {
-
+               if(mEmailView.getText().length()>0 && mPasswordView.getText().length()>0)
+               {
                     final JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put(KEY_EMAIL, mEmailView.getText().toString());
+                        String email1 = mEmailView.getText().toString();
+                        jsonObject.put(KEY_EMAIL,email1);
                         jsonObject.put(KEY_PASSWORD, mPasswordView.getText().toString());
                         Log.d("Testing", "Inside Try");
                     } catch (JSONException e) {
@@ -86,7 +97,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                     //----------------Login request--------------------
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                            (Request.Method.POST, "http://192.168.222.126:8000/auth/login", jsonObject, new Response.Listener<JSONObject>() {
+                            (Request.Method.POST, localhost+"/auth/login", jsonObject, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Log.d("response", response.toString());
@@ -97,13 +108,22 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                                     }
                                     try {
                                         if (response.getString("status").equals("success")) {
+                                            String emwa =email;
+                                 //           Toast.makeText(Faculty_evaluators_login_activity.this, emwa, Toast.LENGTH_LONG).show();
+
                                             user_login_status = true;
                                             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                                             SharedPreferences.Editor editor = settings.edit();
                                             editor.putString("logged", "logged");
+                                    //        editor.putString("email", email);
                                             editor.commit();
 
-                                            Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class);
+                                            /* **********    EMail   ************** */
+
+
+
+
+                                            Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class).putExtra("Email",  mEmailView.getText().toString());
                                             startActivity(intent);
                                         } else if (response.getString("Status").equals("Failure")) {
                                             Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
@@ -133,11 +153,15 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                     registerQueue = Volley.newRequestQueue(getApplicationContext());
                     registerQueue.add(jsonObjectRequest);
                 }
+
+                else{
+                   Toast.makeText(Faculty_evaluators_login_activity.this, "Please Enter Email or Password", Toast.LENGTH_SHORT).show();
+               }
                 }
             });
 
 
-//
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -167,4 +191,5 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     public void setEmailVariable(String emailVariable) {
         EmailVariable = emailVariable;
     }
+
 }
