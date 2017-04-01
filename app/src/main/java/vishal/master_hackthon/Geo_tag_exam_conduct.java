@@ -45,6 +45,8 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
             if(countsuccess == "1"){
                 img1.setImageResource(R.drawable.right_tick);
                 time1.setEnabled(false);
+
+
             }
             if(countsuccess == "2"){
                 img2.setImageResource(R.drawable.right_tick);
