@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import vishal.master_hackthon.Notification.NotificationEventReceiver;
+
 import static android.R.id.message;
 
 
@@ -179,9 +181,13 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     }
 
     public void bypass(View view) {
-        EmailVariable = mEmailView.getText().toString();
-        Intent gro = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_OSDS.class);
-        startActivity(gro);
+
+        NotificationEventReceiver.setupAlarm(getApplicationContext());
+
+
+//        EmailVariable = mEmailView.getText().toString();
+//        Intent gro = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_OSDS.class);
+//        startActivity(gro);
     }
 
     public String getEmailVariable() {
