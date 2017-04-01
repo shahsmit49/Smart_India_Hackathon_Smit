@@ -182,8 +182,12 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
     public void bypass(View view) {
 
-        Log.d("notification","");
-      NotificationEventReceiver.setupAlarm(getApplicationContext());
+//        Log.d("notification","");
+//      NotificationEventReceiver.setupAlarm(getApplicationContext());
+
+Intent i = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_count_down.class);
+        startActivity(i);
+
 
 
 //        EmailVariable = mEmailView.getText().toString();

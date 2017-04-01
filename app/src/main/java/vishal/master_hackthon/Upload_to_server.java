@@ -66,6 +66,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
     String mCurrentPhotoPath;
+    String latitude,longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,11 +78,12 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         editTextName = (EditText) findViewById(R.id.editText);
         mImageView  = (ImageView) findViewById(R.id.imageView);
         TextView counttxt = (TextView)findViewById(R.id.count);
-        buttonChoose.setOnClickListener((View.OnClickListener)this);
+//        buttonChoose.setOnClickListener((View.OnClickListener)this);
         buttonUpload.setOnClickListener((View.OnClickListener)this);
 
-        SharedPreferences pref = getSharedPreferences("Email_save", Context.MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("dean_exam",0);
         String email = pref.getString("email", "");
+        Log.d("Email",email);
         String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
         final String count = getIntent().getStringExtra("count");
         counttxt.setText(count);
@@ -97,7 +99,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
             Log.d("Testing", "Inside Try");
             e.printStackTrace();
         }
-        //----------------Login request--------------------
+
+
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, localhost+"/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
@@ -148,17 +151,19 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         /*************************************************/
             gps.getLocation();
             // check if GPS enabled
-            //while (sss == null)
-            {
+//            while (sss == null)
+//            {
                 if (gps.canGetLocation()) {
                     sss = gps.getLatitude();
 
+//                  String lat = gps.latitude();
+
                     String abc[] = sss.split(",");
-                    String def = abc[0];
-                    String ghi = abc[1];
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
-                    Log.d("lat", def);
-                    Log.d("long", ghi);
+                    latitude = abc[0];
+                    longitude = abc[1];
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                    Log.d("lat", latitude);
+                    Log.d("long", longitude);
                     //double longitude = gps.getLongitude();
                     // \n is for new line
                 }
@@ -169,7 +174,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                     // Ask user to enable GPS/network in settings
                     gps.showSettingsAlert();
                 }
-            }
+//            }
 
 //            new Thread(new Runnable() {
 //                public void run() {
@@ -206,6 +211,13 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 //            }).start();
 //        }
         }
+
+
+
+        /*****************************/
+        //  Upload pic
+        /******************************/
+
 
     @Override
     public void onClick(View v) {
@@ -255,6 +267,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                 //Adding parameters
                 params.put(KEY_IMAGE, image);
                 params.put(KEY_NAME, name);
+                params.put("latitude",latitude);
+                params.put("longitude",longitude);
 
                 //returning parameters
                 return params;

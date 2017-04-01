@@ -14,16 +14,23 @@ public class Faculty_evaluators_count_down extends AppCompatActivity {
         setContentView(R.layout.activity_faculty_evaluators_count_down);
         final TextView mCountdown =(TextView)findViewById(R.id.countdown);
 
-        new CountDownTimer(5000,1000){
+
+
+
+
+
+        new CountDownTimer(1000,1000){
             public void onTick (long millis){
 
-                String ms = String.format("%02d:%02d:%02d", millis / 3600,
-                        (millis % 3600) / 60, (millis % 60));
+                int seconds = (int) (millis / 1000) % 60;
+                int minutes = (int) ((millis / (1000 * 60)) % 60);
+                int hours = (int) ((millis / (1000 * 60 * 60)) % 24);
 
-                mCountdown.setText(ms);
+                mCountdown.setText(hours+":"+minutes+":"+seconds);
 
-//                mCountdown.setText(""+millis/1000);
-            }
+//                mCountdown.setText(ms);
+
+             }
 
             @Override
             public void onFinish() {
