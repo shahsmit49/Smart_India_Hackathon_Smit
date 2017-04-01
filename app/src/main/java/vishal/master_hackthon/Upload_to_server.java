@@ -65,6 +65,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
+
+
     String mCurrentPhotoPath;
     String latitude,longitude;
 
@@ -84,66 +86,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         SharedPreferences pref = getSharedPreferences("dean_exam",0);
         String email = pref.getString("email", "");
         Log.d("Email",email);
-        String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
         final String count = getIntent().getStringExtra("count");
         counttxt.setText(count);
-
-        final JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("deanEmail", email);
-            jsonObject.put("androidLat", "21.132759");
-            jsonObject.put("androidLng", "72.715848");
-
-            Log.d("Testing", "Inside Try");
-        } catch (JSONException e) {
-            Log.d("Testing", "Inside Try");
-            e.printStackTrace();
-        }
-
-
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, localhost+"/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("response", response.toString());
-                        try {
-                            Log.d("maliyo_response",response.getString("status"));
-
-                            /***************succefully uploaded**************************/
-
-                            if(response.getString("status").equals("status")){
-                                Intent myintent=new Intent(Upload_to_server.this, Geo_tag_exam_conduct.class).putExtra("countsuccess", count);
-                                startActivity(myintent);
-                            }
-
-
-                            /**/
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
-                        Log.d("Error", error.toString());
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<String, String>();
-                header.put("Content-Type","application/json");
-                header.put("X-CSRF-TOKEN", token);
-                return header;
-            }
-        };
-        registerQueue = Volley.newRequestQueue(getApplicationContext());
-        registerQueue.add(jsonObjectRequest);
 
 
         /************************************************/
@@ -230,56 +174,120 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     }
 
     private void uploadImage(){
-        //Showing the progress dialog
+
+        final JSONObject jsonObject = new JSONObject();
+        try {
+            String image = getStringImage(bitmap);
+//            jsonObject.put("deanEmail", email);
+//            jsonObject.put("androidLat", latitude);
+//            jsonObject.put("androidLng", longitude);
+            jsonObject.put(KEY_IMAGE,image);
+            Log.d("bitmap_image",image);
+            Log.d("Testing", "Inside Try");
+        } catch (JSONException e) {
+            Log.d("Testing", "Inside Try");
+            e.printStackTrace();
+        }
+
+        String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
+
+
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
-                new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.POST, localhost+"/backend/facultyActivity", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String s) {
-                        //Disimissing the progress dialog
-                        loading.dismiss();
-                        //Showing toast message of the response
-                        Toast.makeText(Upload_to_server.this, s , Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Dismissing the progress dialog
-                        loading.dismiss();
+                    public void onResponse(JSONObject response) {
+                        Log.d("response", response.toString());
+                        try {
+                            Log.d("maliyo_response",response.getString("status"));
 
-                        //Showing toast
-                        Toast.makeText(Upload_to_server.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                            /***************succefully uploaded**************************/
+
+                            if(response.getString("status").equals("status")){
+                                Intent myintent=new Intent(Upload_to_server.this, Geo_tag_exam_conduct.class);
+                                startActivity(myintent);
+                            }
+                            /**/
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                     }
-                }){
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
+                        Log.d("Error", error.toString());
+                    }
+                }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Converting Bitmap to String
-                String image = getStringImage(bitmap);
-//                Log.d("bit_image",image);
-
-                //Getting Image Name
-                String name = editTextName.getText().toString().trim();
-
-                //Creating parameters
-                Map<String,String> params = new Hashtable<String, String>();
-
-                //Adding parameters
-                params.put(KEY_IMAGE, image);
-                params.put(KEY_NAME, name);
-                params.put("latitude",latitude);
-                params.put("longitude",longitude);
-
-                //returning parameters
-                return params;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> header = new HashMap<String, String>();
+                header.put("Content-Type","application/json");
+                header.put("X-CSRF-TOKEN", token);
+                return header;
             }
         };
+        registerQueue = Volley.newRequestQueue(getApplicationContext());
+        registerQueue.add(jsonObjectRequest);
 
-        //Creating a Request Queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        //Adding request to the queue
-        requestQueue.add(stringRequest);
+
+
+
+//        //Showing the progress dialog
+//        String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
+//        final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST,  localhost+"/location/getPlace",
+//
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String s) {
+//                        //Disimissing the progress dialog
+//                        loading.dismiss();
+//                        //Showing toast message of the response
+//                        Toast.makeText(Upload_to_server.this, s , Toast.LENGTH_LONG).show();
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        //Dismissing the progress dialog
+//                        loading.dismiss();
+//
+//                        //Showing toast
+//                        Toast.makeText(Upload_to_server.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
+//                    }
+//                }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                //Converting Bitmap to String
+//                String image = getStringImage(bitmap);
+////                Log.d("bit_image",image);
+//
+//                //Getting Image Name
+//                String name = editTextName.getText().toString().trim();
+//
+//                //Creating parameters
+//                Map<String,String> params = new Hashtable<String, String>();
+//
+//                //Adding parameters
+//                params.put(KEY_IMAGE, image);
+////                params.put(KEY_NAME, name);
+////                params.put("latitude",latitude);
+////                params.put("longitude",longitude);
+//
+//                //returning parameters
+//                return params;
+//            }
+//        };
+//
+//        //Creating a Request Queue
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//
+//        //Adding request to the queue
+////        requestQueue.add(stringRequest);
     }
 
     @Override
