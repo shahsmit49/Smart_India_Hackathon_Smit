@@ -13,7 +13,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
 
-    <string name="Localhost">http://192.168.43.76:8000</string>
+    <string name="Localhost">http://192.168.191.228:8000</string>
     <string name="email">null</string>
     <string name="university_college_school_login">UNIVERSITY/COLLEGE/SCHOOL - LOGIN</string>
     <string name="faculty_teacher_evaluators_osds_login">Faculty/ Teacher/ Evaluators/ OSDS - LOGIN</string>

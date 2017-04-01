@@ -181,13 +181,13 @@ public class exam_center_university_School_Login extends AppCompatActivity {
 
     public void bypass(View view) {
 
-        Log.d("notification","");
-        NotificationEventReceiver.setupAlarm(getApplicationContext());
+//        Log.d("notification","");
+//        NotificationEventReceiver.setupAlarm(getApplicationContext());
 
 
-//        EmailVariable = mEmailView.getText().toString();
-//        Intent gro = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_OSDS.class);
-//        startActivity(gro);
+    Intent i = new Intent(this,CeoVerification.class);
+        startActivity(i);
+
     }
 
     public String getEmailVariable() {

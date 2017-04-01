@@ -78,6 +78,15 @@
         <activity android:name=".Exam_center_university_details"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity android:name=".CeoVerification"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".FingerPrintPrank"
+            android:screenOrientation="portrait">
+        </activity>
+
     </application>
 
 </manifest>
