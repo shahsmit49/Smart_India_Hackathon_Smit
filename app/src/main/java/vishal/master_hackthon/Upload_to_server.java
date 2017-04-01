@@ -60,7 +60,6 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private String token = null;
     private RequestQueue registerQueue;
 
-
     //    private String UPLOAD_URL ="http://simplifiedcoding.16mb.com/VolleyUpload/upload.php";
     private String UPLOAD_URL ="https://vishallog.000webhostapp.com/upload_image.php";
     private String KEY_IMAGE = "image";

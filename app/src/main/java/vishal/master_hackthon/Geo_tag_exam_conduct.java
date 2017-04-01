@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,8 +35,9 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
         ImageView img2 = (ImageView)findViewById(R.id.imageView3);
         ImageView img3 = (ImageView)findViewById(R.id.imageView2);
 
-        DeanName.setText(Deanname);
-        ExamName.setText(Examname);
+        SharedPreferences spe = getSharedPreferences("dean_exam",0);
+        DeanName.setText(spe.getString("DeanName","null"));
+        ExamName.setText(spe.getString("ExamName","null"));
 
         final String countsuccess = getIntent().getStringExtra("countsuccess");
 
@@ -59,7 +61,7 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
 
 
 
-        time1.setOnClickListener(new View.OnClickListener() {
+        img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myintent=new Intent(Geo_tag_exam_conduct.this, Upload_to_server.class).putExtra("count", "1");
@@ -67,7 +69,7 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
             }
         });
 
-        time2.setOnClickListener(new View.OnClickListener() {
+        img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myintent=new Intent(Geo_tag_exam_conduct.this, Upload_to_server.class).putExtra("count", "2");
@@ -75,7 +77,7 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
             }
         });
 
-        time3.setOnClickListener(new View.OnClickListener() {
+        img3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myintent=new Intent(Geo_tag_exam_conduct.this, Upload_to_server.class).putExtra("count", "3");
@@ -84,13 +86,11 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
         });
 
     }
-
     public void notif(View view) {
         NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notify=new Notification.Builder
                 (getApplicationContext()).setContentTitle("Hello").setContentText("YOO").
                 setContentTitle("well bitch").setSmallIcon(R.drawable.ic_android_black_24dp).build();
-
         notify.flags |= Notification.FLAG_AUTO_CANCEL;
         notif.notify(0, notify);
     }

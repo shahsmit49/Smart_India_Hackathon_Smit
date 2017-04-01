@@ -287,10 +287,8 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-
                         android:background="@mipmap/camera"/>
                 </LinearLayout>
-
 
             </LinearLayout>
         </android.support.v7.widget.CardView>

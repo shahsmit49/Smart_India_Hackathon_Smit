@@ -33,16 +33,12 @@ import java.util.Map;
 import static vishal.master_hackthon.Faculty_evaluators_login_activity.PREFS_NAME;
 import static vishal.master_hackthon.R.string.email;
 
-
-
 public class Faculty_evaluators_OSDS extends AppCompatActivity {
 
     private String DeanAuthorization;
-
     private String token = null;
     private RequestQueue registerQueue;
     String DeanName , ExamName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -96,7 +92,6 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
                 (Request.Method.POST, localhost+"/backend/facultyActivity", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
 
                         Log.d("response", response.toString());
                         try {
@@ -196,6 +191,14 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
                             DeanName = (jsonChildNode.optString("DeanName").toString());
                             ExamName = (jsonChildNode.optString("ExamName").toString());
                             DeanAuthorization = (jsonChildNode.optString("DeanAuthorization").toString());
+
+
+                            SharedPreferences spe = getSharedPreferences("dean_exam",0);
+                            SharedPreferences.Editor editors =spe.edit();
+                            editors.putString("DeanName",DeanName);
+                            editors.putString("ExamName",ExamName);
+                            editors.commit();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

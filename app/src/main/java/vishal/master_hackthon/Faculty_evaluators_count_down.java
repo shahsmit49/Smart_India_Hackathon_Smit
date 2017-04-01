@@ -13,9 +13,16 @@ public class Faculty_evaluators_count_down extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faculty_evaluators_count_down);
         final TextView mCountdown =(TextView)findViewById(R.id.countdown);
+
         new CountDownTimer(5000,1000){
             public void onTick (long millis){
-                mCountdown.setText("sec-remaining"+millis/1000);
+
+                String ms = String.format("%02d:%02d:%02d", millis / 3600,
+                        (millis % 3600) / 60, (millis % 60));
+
+                mCountdown.setText(ms);
+
+//                mCountdown.setText(""+millis/1000);
             }
 
             @Override
