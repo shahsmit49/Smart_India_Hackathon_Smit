@@ -302,6 +302,7 @@ public class GPSTracker extends Service implements LocationListener {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
+                Toast.makeText(mContext, "bye", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -311,11 +312,8 @@ public class GPSTracker extends Service implements LocationListener {
                 dialog.cancel();
 
 
-                Intent intent=new Intent(GPSTracker.this,Geo_tag_exam_conduct.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+//                Intent intent=new Intent(GPSTracker.this,Geo_tag_exam_conduct.class);
+//                startActivity(intent);
             }
         });
 

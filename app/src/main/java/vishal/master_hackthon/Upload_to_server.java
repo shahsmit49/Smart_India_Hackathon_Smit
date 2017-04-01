@@ -97,7 +97,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
             // check if GPS enabled
 //            while (sss == null)
 //            {
-                if (gps.canGetLocation()) {
+                //if (gps.canGetLocation()) {
                     sss = gps.getLatitude();
 
 //                  String lat = gps.latitude();
@@ -110,14 +110,14 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                     Log.d("long", longitude);
                     //double longitude = gps.getLongitude();
                     // \n is for new line
-                }
-                else
-                {
-                    // can't get location
-                    // GPS or Network is not enabled
-                    // Ask user to enable GPS/network in settings
-                    gps.showSettingsAlert();
-                }
+                //}
+//                else
+//                {
+//                    // can't get location
+//                    // GPS or Network is not enabled
+//                    // Ask user to enable GPS/network in settings
+//                    gps.showSettingsAlert();
+//                }
 //            }
 
 //            new Thread(new Runnable() {

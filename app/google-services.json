@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "380760555635",
+    "firebase_url": "https://haackathon17.firebaseio.com",
+    "project_id": "haackathon17",
+    "storage_bucket": "haackathon17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380760555635:android:f0dd3693f33b37a9",
+        "android_client_info": {
+          "package_name": "vishal.master_hackthon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "380760555635-sg493ovb6vlv61uhticeh0r6fmmum9o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHUPLKJOYxMmQ5kTDu1K6_Q98FY_c1dzY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
