@@ -85,7 +85,7 @@ public class Geo_Tag extends ActionBarActivity {
     public void clickkk(View view) {
         final JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("deanEmail", "MayankJ@gmail.com");
+            jsonObject.put("deanEmail", "vishal@gmail.com");
             jsonObject.put("androidLat", "21.132759");
             jsonObject.put("androidLng", "72.715848");
 

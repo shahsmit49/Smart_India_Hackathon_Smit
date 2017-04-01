@@ -61,7 +61,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private RequestQueue registerQueue;
 
     //    private String UPLOAD_URL ="http://simplifiedcoding.16mb.com/VolleyUpload/upload.php";
-    private String UPLOAD_URL ="https://vishallog.000webhostapp.com/upload_image.php";
+//    private String UPLOAD_URL ="https://vishallog.000webhostapp.com/upload_image.php";
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
@@ -77,7 +77,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_upload_to_server);
 //        buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
-        editTextName = (EditText) findViewById(R.id.editText);
+//        editTextName = (EditText) findViewById(R.id.editText);
         mImageView  = (ImageView) findViewById(R.id.imageView);
         TextView counttxt = (TextView)findViewById(R.id.count);
 //        buttonChoose.setOnClickListener((View.OnClickListener)this);
@@ -177,12 +177,20 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
         final JSONObject jsonObject = new JSONObject();
         try {
-            String image = getStringImage(bitmap);
-//            jsonObject.put("deanEmail", email);
-//            jsonObject.put("androidLat", latitude);
-//            jsonObject.put("androidLng", longitude);
-            jsonObject.put(KEY_IMAGE,image);
-            Log.d("bitmap_image",image);
+//            String image = getStringImage(bitmap);
+
+//            jsonObject.put("deanEmail", "vishal@gmail.com");
+//            jsonObject.put("androidLat", "21.132759");
+//            jsonObject.put("androidLng", "72.715848");
+
+
+            jsonObject.put("deanEmail", "vishal@gmail.com");
+            jsonObject.put("androidLat", latitude);
+            jsonObject.put("androidLng", longitude);
+
+
+//            jsonObject.put(KEY_IMAGE,image);
+//           Log.d("bitmap_image",image);
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
             Log.d("Testing", "Inside Try");
@@ -195,19 +203,19 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, localhost+"/backend/facultyActivity", jsonObject, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, localhost+"/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
                         try {
                             Log.d("maliyo_response",response.getString("status"));
-
+                            loading.dismiss();
                             /***************succefully uploaded**************************/
 
-                            if(response.getString("status").equals("status")){
-                                Intent myintent=new Intent(Upload_to_server.this, Geo_tag_exam_conduct.class);
-                                startActivity(myintent);
-                            }
+//                            if(response.getString("status").equals("status")){
+//                                Intent myintent=new Intent(Upload_to_server.this, Geo_tag_exam_conduct.class);
+//                                startActivity(myintent);
+//                            }
                             /**/
 
                         } catch (JSONException e) {
@@ -218,6 +226,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        loading.dismiss();
                         Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
                         Log.d("Error", error.toString());
                     }
