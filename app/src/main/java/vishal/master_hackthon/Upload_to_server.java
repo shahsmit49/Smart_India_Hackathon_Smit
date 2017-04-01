@@ -90,8 +90,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         final JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("deanEmail", email);
-//            jsonObject.put("androidLat", "21.132759");
-//            jsonObject.put("androidLng", "72.715848");
+            jsonObject.put("androidLat", "21.132759");
+            jsonObject.put("androidLng", "72.715848");
 
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {

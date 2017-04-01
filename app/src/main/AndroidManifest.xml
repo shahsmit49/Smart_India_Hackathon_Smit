@@ -9,8 +9,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -25,22 +25,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
-            <service
-                android:name=".notification.NotificationIntentService"
-                android:enabled="true"
-                android:exported="false" />
-
-            <receiver android:name=".broadcast_receivers.NotificationEventReceiver" />
-            <receiver android:name=".broadcast_receivers.NotificationServiceStarterReceiver">
-                <intent-filter>
-                    <action android:name="android.intent.action.BOOT_COMPLETED" />
-                    <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                    <action android:name="android.intent.action.TIME_SET" />
-                </intent-filter>
-            </receiver>
-
         </activity>
+
+        <service
+            android:name=".Notification.NotificationIntentService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <receiver android:name=".Notification.NotificationEventReceiver"/>
+        <receiver android:name=".Notification.NotificationServiceStarterReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".exam_center_university_School_Name">
@@ -59,7 +59,12 @@
         </activity>
         <activity android:name=".Faculty_evaluators_count_down">
         </activity>
-
+        <activity android:name=".NotificationActivity">
+        </activity>
+        <activity android:name=".exam_center_university_School_Login">
+        </activity>
+        <activity android:name=".Exam_center_university_details">
+        </activity>
     </application>
 
 </manifest>

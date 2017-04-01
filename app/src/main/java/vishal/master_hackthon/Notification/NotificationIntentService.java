@@ -10,6 +10,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
 import vishal.master_hackthon.Geo_tag_exam_conduct;
+import vishal.master_hackthon.NotificationActivity;
 import vishal.master_hackthon.R;
 
 /**
@@ -73,7 +74,7 @@ public class NotificationIntentService extends IntentService {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 NOTIFICATION_ID,
-                new Intent(this, Geo_tag_exam_conduct.class),
+                new Intent(this, NotificationActivity.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
         builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));

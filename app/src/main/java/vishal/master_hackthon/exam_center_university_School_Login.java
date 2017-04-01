@@ -1,5 +1,8 @@
 package vishal.master_hackthon;
 
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,14 +41,14 @@ import static android.R.id.message;
 /**
  * A login screen that offers login via email/password.
  */
-public class Faculty_evaluators_login_activity extends AppCompatActivity {
+public class exam_center_university_School_Login extends AppCompatActivity {
     private static final int REQUEST_READ_CONTACTS = 0;
     private EditText mEmailView;
     private EditText mPasswordView;
     private RequestQueue registerQueue;
     private View mProgressView;
     private View mLoginFormView;
-    private String KEY_EMAIL = "email";
+    private String KEY_EMAIL = "username";
     private String KEY_PASSWORD = "password";
     private String token=null;
     String response;
@@ -55,7 +58,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_exam_center_university__school__login);
 
         // Add your initialization code here
 
@@ -74,7 +77,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getString("logged", "").toString().equals("logged")) {
-            Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class);
+            Intent intent = new Intent(exam_center_university_School_Login.this, Faculty_evaluators_OSDS.class);
             startActivity(intent);
         }
 
@@ -84,8 +87,8 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
             public void onClick(View view) {
                 String localhost=getApplicationContext().getResources().getString(R.string.Localhost);
 
-               if(mEmailView.getText().length()>0 && mPasswordView.getText().length()>0)
-               {
+                if(mEmailView.getText().length()>0 && mPasswordView.getText().length()>0)
+                {
                     final JSONObject jsonObject = new JSONObject();
                     try {
                         String email1 = mEmailView.getText().toString();
@@ -99,7 +102,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                     //----------------Login request--------------------
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                            (Request.Method.POST, localhost+"/auth/login", jsonObject, new Response.Listener<JSONObject>() {
+                            (Request.Method.POST, localhost+"/auth/universityLogin", jsonObject, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Log.d("response", response.toString());
@@ -111,21 +114,22 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                                     try {
                                         if (response.getString("status").equals("success")) {
                                             String emwa =email;
-                                 //           Toast.makeText(Faculty_evaluators_login_activity.this, emwa, Toast.LENGTH_LONG).show();
 
-                                            user_login_status = true;
-                                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                                            SharedPreferences.Editor editor = settings.edit();
-                                            editor.putString("logged", "logged");
-                                    //        editor.putString("email", email);
-                                            editor.commit();
+                                            //           Toast.makeText(Faculty_evaluators_login_activity.this, emwa, Toast.LENGTH_LONG).show();
+
+//                                            user_login_status = true;
+//                                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//                                            SharedPreferences.Editor editor = settings.edit();
+//                                            editor.putString("logged", "logged");
+//                                            //        editor.putString("email", email);
+//                                            editor.commit();
 
                                             /* **********    EMail   ************** */
 
 
 
 
-                                            Intent intent = new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class).putExtra("Email",  mEmailView.getText().toString());
+                                            Intent intent = new Intent(exam_center_university_School_Login.this, Exam_center_university_details.class).putExtra("Email",  mEmailView.getText().toString());
                                             startActivity(intent);
                                         } else if (response.getString("Status").equals("Failure")) {
                                             Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
@@ -157,10 +161,10 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                 }
 
                 else{
-                   Toast.makeText(Faculty_evaluators_login_activity.this, "Please Enter Email or Password", Toast.LENGTH_SHORT).show();
-               }
+                    Toast.makeText(exam_center_university_School_Login.this, "Please Enter Email or Password", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        });
 
 
 
@@ -175,15 +179,10 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
     }
 
-    public void geotag(View view) {
-        Intent i = new Intent(Faculty_evaluators_login_activity.this,Geo_Tag.class);
-        startActivity(i);
-    }
-
     public void bypass(View view) {
 
         Log.d("notification","");
-      NotificationEventReceiver.setupAlarm(getApplicationContext());
+        NotificationEventReceiver.setupAlarm(getApplicationContext());
 
 
 //        EmailVariable = mEmailView.getText().toString();
@@ -197,13 +196,6 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
     public void setEmailVariable(String emailVariable) {
         EmailVariable = emailVariable;
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        // code here to show dialog
-        super.onBackPressed();  // optional depending on your needs
     }
 
 }
