@@ -75,11 +75,11 @@ public class exam_center_university_School_Login extends AppCompatActivity {
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
 
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if (settings.getString("logged", "").toString().equals("logged")) {
-            Intent intent = new Intent(exam_center_university_School_Login.this, Faculty_evaluators_OSDS.class);
-            startActivity(intent);
-        }
+//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//        if (settings.getString("logged", "").toString().equals("logged")) {
+//            Intent intent = new Intent(exam_center_university_School_Login.this, Faculty_evaluators_OSDS.class);
+//            startActivity(intent);
+//        }
 
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -129,7 +129,7 @@ public class exam_center_university_School_Login extends AppCompatActivity {
 
 
 
-                                            Intent intent = new Intent(exam_center_university_School_Login.this, Exam_center_university_details.class).putExtra("Email",  mEmailView.getText().toString());
+                                            Intent intent = new Intent(exam_center_university_School_Login.this, CeoVerification.class).putExtra("Email",  mEmailView.getText().toString());
                                             startActivity(intent);
                                         } else if (response.getString("Status").equals("Failure")) {
                                             Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
