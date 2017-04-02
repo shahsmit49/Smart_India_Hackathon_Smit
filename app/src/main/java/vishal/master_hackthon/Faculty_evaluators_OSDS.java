@@ -173,9 +173,105 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
         }
 
     public void exam_name(View view) {
-        Intent i1 = new Intent(Faculty_evaluators_OSDS.this, Geo_tag_exam_conduct.class);
-        startActivity(i1);
-    }
+
+
+            final ProgressDialog progressDialog1 = new ProgressDialog(this);
+
+            progressDialog1.setMessage("Checking For Biometric Authentication.....");
+            progressDialog1.show();
+
+            final JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("deanEmail", "vishal@gmail.com");
+
+                Log.d("Testing", "Inside Try");
+            } catch (JSONException e) {
+                Log.d("Testing", "Inside Try");
+                e.printStackTrace();
+            }
+            //----------------Login request--------------------
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+            String localhost1 = getApplicationContext().getResources().getString(R.string.Localhost);
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.POST, localhost1+"/backend/facultyActivity", jsonObject, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+
+                            Log.d("response", response.toString());
+                            try {
+                                Log.d("mster_response",response.getString("status"));
+
+                                JSONArray jsonMainNode = response.optJSONArray("status");
+                                JSONObject jsonChildNode = jsonMainNode.getJSONObject(0);
+
+                                /******* Fetch node values **********/
+                                DeanName = (jsonChildNode.optString("DeanName").toString());
+                                ExamName = (jsonChildNode.optString("ExamName").toString());
+//                            examDuty.setText(jsonChildNode.optString("DeanRole").toString());
+
+                                DeanAuthorization = (jsonChildNode.optString("DeanAuthorization").toString());
+
+
+                                SharedPreferences spe = getSharedPreferences("dean_exam",0);
+                                SharedPreferences.Editor editors =spe.edit();
+                                editors.putString("DeanName",DeanName);
+                                editors.putString("ExamName",ExamName);
+                                editors.commit();
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+
+
+                            Toast.makeText(getApplicationContext(),DeanName+" "+ExamName, Toast.LENGTH_LONG).show();
+
+
+                            if(!DeanAuthorization.equals("0")){
+                                Intent i = new Intent(Faculty_evaluators_OSDS.this, Faculty_evaluators_count_down.class);
+                                i.putExtra("DeanName", DeanName);
+                                i.putExtra("ExamName", ExamName);
+                                startActivity(i);
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"Biometric not done ",Toast.LENGTH_LONG).show();
+                            }
+                            Toast.makeText(getApplicationContext(),DeanAuthorization, Toast.LENGTH_LONG).show();
+
+                            progressDialog1.dismiss();
+
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
+                            Log.d("Error", error.toString());
+                        }
+                    }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> header = new HashMap<String, String>();
+                    header.put("Content-Type","application/json");
+                    header.put("X-CSRF-TOKEN", token);
+                    return header;
+                }
+            };
+            registerQueue = Volley.newRequestQueue(getApplicationContext());
+            registerQueue.add(jsonObjectRequest);
+
+
+        }
+
+
+
+//        Intent i1 = new Intent(Faculty_evaluators_OSDS.this, Geo_tag_exam_conduct.class);
+//        startActivity(i1);
 
     public void logout(View view) {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);

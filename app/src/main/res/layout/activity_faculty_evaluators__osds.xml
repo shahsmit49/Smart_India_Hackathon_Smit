@@ -100,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#15b31d"
+
                     android:onClick="exam_name"
                     android:textAlignment="center"
                     android:textColor="#fff"
