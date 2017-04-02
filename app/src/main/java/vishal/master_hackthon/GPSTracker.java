@@ -52,6 +52,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     public void getLocation() {
         try {
+            canGetLocation=false;
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             // getting GPS status
@@ -310,7 +311,7 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-
+                return;
 
 //                Intent intent=new Intent(GPSTracker.this,Geo_tag_exam_conduct.class);
 //                startActivity(intent);

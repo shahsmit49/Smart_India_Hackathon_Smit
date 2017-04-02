@@ -98,7 +98,6 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
                 else
                 {
                     gps.showSettingsAlert();
-                    return;
                 }
             }
         });

@@ -130,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:id="@+id/payment"
                 android:background="@drawable/rounded_shape"
                 android:text="Payment Status"
                 android:textAlignment="center"

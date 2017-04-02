@@ -53,6 +53,14 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
 
         setContentView(R.layout.activity_faculty_evaluators__osds);
 
+        findViewById(R.id.payment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Faculty_evaluators_OSDS.this,Payment_Status.class));
+            }
+        });
+
+
         Faculty_evaluators_login_activity logo = new Faculty_evaluators_login_activity();
         final TextView examDuty = (TextView)findViewById(R.id.exam_duty);
         final TextView facultyName = (TextView)findViewById(R.id.faculty_name);
