@@ -10,11 +10,9 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -252,8 +250,7 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to get longitude
      * */
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public double getLongitude(){
+    /*public double getLongitude(){
         if(location != null)
         {
             if(location.isFromMockProvider())
@@ -271,7 +268,7 @@ public class GPSTracker extends Service implements LocationListener {
 
         // return longitude
         return longitude;
-    }
+    }*/
 
 
 

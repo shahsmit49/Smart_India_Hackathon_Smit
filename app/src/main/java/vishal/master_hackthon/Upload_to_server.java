@@ -92,29 +92,29 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
 
         /************************************************/
-               //         GPS
+        //         GPS
         /*************************************************/
-            gps.getLocation();
-            // check if GPS enabled
+        gps.getLocation();
+        // check if GPS enabled
 //            while (sss == null)
 //            {
-                //if (gps.canGetLocation()) {
-                    sss = gps.getLatitude();
+        //if (gps.canGetLocation()) {
+        sss = gps.getLatitude();
 //                  String lat = gps.latitude();
 
-                    String abc[] = sss.split(",");
-                    latitude = abc[0];
-                    longitude = abc[1];
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                    Log.d("lat", latitude);
-                    Log.d("long", longitude);
-        }
+        String abc[] = sss.split(",");
+        latitude = abc[0];
+        longitude = abc[1];
+        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        Log.d("lat", latitude);
+        Log.d("long", longitude);
+    }
 
 
 
-        /*****************************/
-        //  Upload pic
-        /******************************/
+    /*****************************/
+    //  Upload pic
+    /******************************/
 
 
     @Override
@@ -145,7 +145,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
 
             jsonObject.put(KEY_IMAGE,image);
-           Log.d("bitmap_image",image);
+            Log.d("bitmap_image",image);
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
             Log.d("Testing", "Inside Try");
@@ -293,7 +293,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        imageFileName = "JPEG_" + timeStamp + "_";
+        imageFileName = timeStamp + "_"+".jpg";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File image = File.createTempFile(

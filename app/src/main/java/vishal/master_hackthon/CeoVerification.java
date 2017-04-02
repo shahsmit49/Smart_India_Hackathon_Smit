@@ -46,6 +46,7 @@ public class CeoVerification extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedPos=i;
                 startActivityForResult(new Intent(CeoVerification.this, FingerPrintPrank.class), REQ_PERSON_AUTH);
+
             }
         });
         ceoFG.setOnClickListener(new View.OnClickListener() {
