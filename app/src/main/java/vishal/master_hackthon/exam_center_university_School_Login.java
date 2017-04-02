@@ -55,6 +55,8 @@ public class exam_center_university_School_Login extends AppCompatActivity {
     private String EmailVariable;
     boolean user_login_status = false;
     public static final String PREFS_NAME = "LoginPrefs";
+    public static String strresponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,8 +139,8 @@ public class exam_center_university_School_Login extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-
-                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                                    strresponse=response.toString();
+//                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                     //                   startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class));
                                 }
                             }, new Response.ErrorListener() {

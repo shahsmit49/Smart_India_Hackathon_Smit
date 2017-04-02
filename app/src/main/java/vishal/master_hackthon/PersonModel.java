@@ -7,10 +7,13 @@ package vishal.master_hackthon;
 public class PersonModel {
     String name;
     boolean isvarified;
+    String aadhar,email;
 
-    public PersonModel(String s, boolean b) {
+    public PersonModel(String s, boolean b,String aadhar,String email) {
         name=s;
         isvarified=b;
+        this.aadhar=aadhar;
+        this.email=email;
     }
 
     public String getName() {
@@ -27,5 +30,21 @@ public class PersonModel {
 
     public void setIsvarified(boolean isvarified) {
         this.isvarified = isvarified;
+    }
+
+    public String getAadhar() {
+        return aadhar;
+    }
+
+    public void setAadhar(String aadhar) {
+        this.aadhar = aadhar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

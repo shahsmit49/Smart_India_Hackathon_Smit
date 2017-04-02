@@ -46,47 +46,46 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class Upload_to_server extends AppCompatActivity implements View.OnClickListener  {
+public class Upload_to_server extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonChoose;
-    private Button buttonUpload,btpic;
+    private Button buttonUpload, btpic;
     private ImageView mImageView;
     private EditText editTextName;
     private Bitmap bitmap;
-    String sss=null;
+    String sss = null;
     GPSTracker gps = new GPSTracker(Upload_to_server.this);
     private int PICK_IMAGE_REQUEST = 1;
-
-    private String token = null;
-    private RequestQueue registerQueue;
 
     //    private String UPLOAD_URL ="http://simplifiedcoding.16mb.com/VolleyUpload/upload.php";
 //    private String UPLOAD_URL ="https://vishallog.000webhostapp.com/upload_image.php";
     private String KEY_IMAGE = "image";
+
+    private String token = null;
+    private RequestQueue registerQueue;
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
     String imageFileName;
 
 
     String mCurrentPhotoPath;
-    String latitude,longitude;
+    String latitude, longitude;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_to_server);
 //        buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (Button) findViewById(R.id.buttonUpload);
 //        editTextName = (EditText) findViewById(R.id.editText);
-        mImageView  = (ImageView) findViewById(R.id.imageView);
-        TextView counttxt = (TextView)findViewById(R.id.count);
+        mImageView = (ImageView) findViewById(R.id.imageView);
+        TextView counttxt = (TextView) findViewById(R.id.count);
 //        buttonChoose.setOnClickListener((View.OnClickListener)this);
-        buttonUpload.setOnClickListener((View.OnClickListener)this);
+        buttonUpload.setOnClickListener((View.OnClickListener) this);
 
-        SharedPreferences pref = getSharedPreferences("dean_exam",0);
+        SharedPreferences pref = getSharedPreferences("dean_exam", 0);
         String email = pref.getString("email", "");
-        Log.d("Email",email);
+        Log.d("Email", email);
         final String count = getIntent().getStringExtra("count");
         counttxt.setText(count);
 
@@ -111,23 +110,23 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     }
 
 
-
     /*****************************/
     //  Upload pic
+
     /******************************/
 
 
     @Override
     public void onClick(View v) {
-        if(v == buttonChoose){
+        if (v == buttonChoose) {
             showFileChooser();
         }
-        if(v == buttonUpload){
+        if (v == buttonUpload) {
             uploadImage();
         }
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
 
         final JSONObject jsonObject = new JSONObject();
         try {
@@ -143,9 +142,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
             jsonObject.put("fileName", imageFileName);
 
 
-
-            jsonObject.put(KEY_IMAGE,image);
-            Log.d("bitmap_image",image);
+            jsonObject.put(KEY_IMAGE, image);
+            Log.d("bitmap_image", image);
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
             Log.d("Testing", "Inside Try");
@@ -155,16 +153,17 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
         String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
 
 
-        final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, localhost+"/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, localhost + "/location/getPlace", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
                         try {
-                            Log.d("maliyo_response",response.getString("status"));
+                            Log.d("maliyo_response", response.getString("status"));
                             loading.dismiss();
+
                             /***************succefully uploaded**************************/
 
 //                            if(response.getString("status").equals("status")){
@@ -172,7 +171,8 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 //                                startActivity(myintent);
 //                            }
                             /**/
-
+                            setResult(RESULT_OK);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -189,14 +189,13 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<String, String>();
-                header.put("Content-Type","application/json");
+                header.put("Content-Type", "application/json");
                 header.put("X-CSRF-TOKEN", token);
                 return header;
             }
         };
         registerQueue = Volley.newRequestQueue(getApplicationContext());
         registerQueue.add(jsonObjectRequest);
-
 
 
     }
@@ -221,7 +220,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public String getStringImage(Bitmap bmp){
+    public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -293,7 +292,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        imageFileName = timeStamp + "_"+".jpg";
+        imageFileName = timeStamp + "_" + ".jpg";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File image = File.createTempFile(

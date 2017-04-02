@@ -52,6 +52,8 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
     private String EmailVariable;
     boolean user_login_status = false;
     public static final String PREFS_NAME = "LoginPrefs";
+    public static String mailshare;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,8 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
         mEmailView = (EditText) findViewById(R.id.input_email_login);
         mPasswordView = (EditText) findViewById(R.id.input_password_login);
-        final String email = mEmailView.getText().toString();
+         String email = mEmailView.getText().toString();
+        mailshare=email;
         final String password = mPasswordView.getText().toString();
         /**/
         //
@@ -110,14 +113,14 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                                     }
                                     try {
                                         if (response.getString("status").equals("success")) {
-                                            String emwa =email;
+                                            //String emwa =email;
                                  //           Toast.makeText(Faculty_evaluators_login_activity.this, emwa, Toast.LENGTH_LONG).show();
 
                                             user_login_status = true;
                                             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                                             SharedPreferences.Editor editor = settings.edit();
                                             editor.putString("logged", "logged");
-                                    //        editor.putString("email", email);
+                                           // editor.putString("email", email);
                                             editor.commit();
 
                                             /* **********    EMail   ************** */
@@ -134,7 +137,7 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
 
-                                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                              //      Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                                     //                   startActivity(new Intent(Faculty_evaluators_login_activity.this, Faculty_evaluators_OSDS.class));
                                 }
                             }, new Response.ErrorListener() {
@@ -204,10 +207,10 @@ Intent i = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_
     }
 
     @Override
-    public void onBackPressed()
+    public void onBackPressed ()
     {
-        // code here to show dialog
-        super.onBackPressed();  // optional depending on your needs
+        Intent i1 = new Intent(Faculty_evaluators_login_activity.this, MainActivity.class);
+        startActivity(i1);
     }
 
 }

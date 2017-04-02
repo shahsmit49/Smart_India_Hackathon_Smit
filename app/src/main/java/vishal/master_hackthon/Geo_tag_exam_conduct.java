@@ -21,7 +21,14 @@ import static vishal.master_hackthon.R.id.count;
 
 public class Geo_tag_exam_conduct extends AppCompatActivity {
 
+    private static final int REQ_ONE = 521;
+    private static final int REQ_TWO = 522;
+    private static final int REQ_THREE = 523;
     GPSTracker gps;
+    private ImageView img3;
+    private ImageView img2;
+    private ImageView img1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +37,9 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
         String Deanname = getIntent().getStringExtra("DeanName");
         String Examname = getIntent().getStringExtra("ExamName");
 
-        Button time1 = (Button)findViewById(R.id.textView4);
-        Button time2 = (Button)findViewById(R.id.textView3);
-        Button time3 = (Button)findViewById(R.id.textView2);
+        Button time1 = (Button) findViewById(R.id.textView4);
+        Button time2 = (Button) findViewById(R.id.textView3);
+        Button time3 = (Button) findViewById(R.id.textView2);
 
         gps = new GPSTracker(Geo_tag_exam_conduct.this);
         gps.getLocation();
@@ -51,52 +58,50 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
 //            gps.getLocation();
 //        }
 
-        TextView DeanName = (TextView)findViewById(R.id.faculty_name1);
-        TextView ExamName = (TextView)findViewById(R.id.examname1);
+        TextView DeanName = (TextView) findViewById(R.id.faculty_name1);
+        TextView ExamName = (TextView) findViewById(R.id.examname1);
+        TextView ExamDuty = (TextView) findViewById(R.id.exam_duty);
 
-        ImageView img1 = (ImageView)findViewById(R.id.imageView4);
-        ImageView img2 = (ImageView)findViewById(R.id.imageView3);
-        ImageView img3 = (ImageView)findViewById(R.id.imageView2);
+        DeanName.setText(Faculty_evaluators_OSDS.DeanName);
+        ExamName.setText(Faculty_evaluators_OSDS.ExamName);
+        ExamDuty.setText(Faculty_evaluators_OSDS.ExamDuty);
 
-        SharedPreferences spe = getSharedPreferences("dean_exam",0);
-        DeanName.setText(spe.getString("DeanName","null"));
-        ExamName.setText(spe.getString("ExamName","null"));
+
+        img1 = (ImageView) findViewById(R.id.imageView4);
+        img2 = (ImageView) findViewById(R.id.imageView3);
+        img3 = (ImageView) findViewById(R.id.imageView2);
+
 
         final String countsuccess = getIntent().getStringExtra("countsuccess");
 
-        if(countsuccess != null){
-            if(countsuccess == "1"){
+        if (countsuccess != null) {
+            if (countsuccess == "1") {
                 img1.setImageResource(R.drawable.right_tick);
                 time1.setEnabled(false);
 
 
             }
-            if(countsuccess == "2"){
+            if (countsuccess == "2") {
                 img2.setImageResource(R.drawable.right_tick);
                 time2.setEnabled(false);
-            }if(countsuccess == "3"){
+            }
+            if (countsuccess == "3") {
                 img3.setImageResource(R.drawable.right_tick);
                 time3.setEnabled(false);
             }
 
 
-
-
         }
-
 
 
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 gps.getLocation();
-                if(gps.canGetLocation()) {
+                if (gps.canGetLocation()) {
                     Intent myintent = new Intent(Geo_tag_exam_conduct.this, Upload_to_server.class).putExtra("count", "1");
-                    startActivity(myintent);
-                }
-                else
-                {
+                    startActivityForResult(myintent, REQ_ONE);
+                } else {
                     gps.showSettingsAlert();
                 }
             }
@@ -104,15 +109,12 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
 
         img2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 gps.getLocation();
-                if(gps.canGetLocation()) {
+                if (gps.canGetLocation()) {
                     Intent myintent = new Intent(Geo_tag_exam_conduct.this, Upload_to_server.class).putExtra("count", "1");
-                    startActivity(myintent);
-                }
-                else
-                {
+                    startActivityForResult(myintent,REQ_TWO);
+                } else {
                     gps.showSettingsAlert();
                     return;
                 }
@@ -121,15 +123,12 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
 
         img3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 gps.getLocation();
-                if(gps.canGetLocation()) {
+                if (gps.canGetLocation()) {
                     Intent myintent = new Intent(Geo_tag_exam_conduct.this, Upload_to_server.class).putExtra("count", "1");
-                    startActivity(myintent);
-                }
-                else
-                {
+                    startActivityForResult(myintent,REQ_THREE);
+                } else {
                     gps.showSettingsAlert();
                     return;
                 }
@@ -139,13 +138,30 @@ public class Geo_tag_exam_conduct extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_ONE) {
+            img1.setImageResource(R.drawable.right_tick);
+            img1.setEnabled(false);
+        }
+        if (requestCode == REQ_TWO) {
+            img2.setImageResource(R.drawable.right_tick);
+            img2.setEnabled(false);
+        }
+        if (requestCode == REQ_THREE) {
+            img3.setImageResource(R.drawable.right_tick);
+            img3.setEnabled(false);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
     }
 
     public void notif(View view) {
-        NotificationManager notif=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notify=new Notification.Builder
+        NotificationManager notif = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notify = new Notification.Builder
                 (getApplicationContext()).setContentTitle("Hello").setContentText("YOO").
                 setContentTitle("well bitch").setSmallIcon(R.drawable.ic_android_black_24dp).build();
         notify.flags |= Notification.FLAG_AUTO_CANCEL;

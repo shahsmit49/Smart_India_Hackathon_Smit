@@ -1,6 +1,7 @@
 package vishal.master_hackthon;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,20 +31,20 @@ public class Payment_Status extends AppCompatActivity {
     private String token = null;
     private RequestQueue registerQueue;
 
+    public static final String PREFS_NAME = "LoginPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.psyment_status);
-        ListView llPayment = (ListView) findViewById(R.id.lv);
+        final ListView llPayment = (ListView) findViewById(R.id.lv);
 
 
         final JSONObject jsonObject = new JSONObject();
         try {
-
-            jsonObject.put("deanEmail", "vishal@gmail.com");
-            jsonObject.put("androidLat", "21.132759");
-            jsonObject.put("androidLng", "72.715848");
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            String email=settings.getString("email", "").toString();
+            jsonObject.put("deanEmail","vishal@gmail.com");
 
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
@@ -53,15 +55,30 @@ public class Payment_Status extends AppCompatActivity {
         String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
 
 
-        final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, localhost+"/deanAadhar/verify", jsonObject, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, localhost + "/androidPayment", jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
+
                         try {
-                            Log.d("maliyo_response",response.getString("status"));
+                            JSONObject json = new JSONObject(response.toString());
+                            JSONArray jrr = json.getJSONArray("status");
+                            String status = ((JSONObject) jrr.get(0)).optString("PaymentStatus");
+
+                            custom_models.add(new Custom_Model(Faculty_evaluators_OSDS.ExamName, Faculty_evaluators_OSDS.ExamDuty, status));
+
+
+                            Custom_Adapter custom_adapter = new Custom_Adapter(custom_models, Payment_Status.this);
+                            llPayment.setAdapter(custom_adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            Log.d("maliyo_response", response.getString("status"));
                             loading.dismiss();
                             /***************succefully uploaded**************************/
 
@@ -87,21 +104,13 @@ public class Payment_Status extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> header = new HashMap<String, String>();
-                header.put("Content-Type","application/json");
+                header.put("Content-Type", "application/json");
                 header.put("X-CSRF-TOKEN", token);
                 return header;
             }
         };
         registerQueue = Volley.newRequestQueue(getApplicationContext());
         registerQueue.add(jsonObjectRequest);
-
-
-
-        custom_models.add(new Custom_Model("JEEE", "Examiner", "CLEARED"));
-        custom_models.add(new Custom_Model("AIEEE", "Examiner", "UN-CLEARED"));
-        custom_models.add(new Custom_Model("SSC", "Super.", "CLEARED"));
-        Custom_Adapter custom_adapter = new Custom_Adapter(custom_models, Payment_Status.this);
-        llPayment.setAdapter(custom_adapter);
 
 
     }
