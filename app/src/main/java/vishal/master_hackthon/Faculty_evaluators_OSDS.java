@@ -111,8 +111,10 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
                             /******* Fetch node values **********/
                             facultyName.setText (jsonChildNode.optString("DeanName").toString());
                             examName.setText(jsonChildNode.optString("ExamName").toString());
-                            examDuty.setText(jsonChildNode.optString("DeanRole").toString());
+                            examDuty.setText(jsonChildNode.optString("Role").toString());
                             DeanAuthorization = (jsonChildNode.optString("DeanAuthorization").toString());
+
+
 
 
 
@@ -198,6 +200,8 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
                             /******* Fetch node values **********/
                             DeanName = (jsonChildNode.optString("DeanName").toString());
                             ExamName = (jsonChildNode.optString("ExamName").toString());
+//                            examDuty.setText(jsonChildNode.optString("DeanRole").toString());
+
                             DeanAuthorization = (jsonChildNode.optString("DeanAuthorization").toString());
 
 
