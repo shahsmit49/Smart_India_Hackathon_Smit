@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+
 public class Faculty_evaluators_count_down extends AppCompatActivity {
 
     @Override
@@ -19,7 +20,7 @@ public class Faculty_evaluators_count_down extends AppCompatActivity {
 
 
 
-        new CountDownTimer(5000,1000){
+        new CountDownTimer(1000,1000){
             public void onTick (long millis){
 
                 int seconds = (int) (millis / 1000) % 60;

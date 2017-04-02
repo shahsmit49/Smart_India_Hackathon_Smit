@@ -65,6 +65,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     private String KEY_DESC = "desc";
+    String imageFileName;
 
 
     String mCurrentPhotoPath;
@@ -99,7 +100,6 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 //            {
                 //if (gps.canGetLocation()) {
                     sss = gps.getLatitude();
-
 //                  String lat = gps.latitude();
 
                     String abc[] = sss.split(",");
@@ -108,52 +108,6 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
                     Log.d("lat", latitude);
                     Log.d("long", longitude);
-                    //double longitude = gps.getLongitude();
-                    // \n is for new line
-                //}
-//                else
-//                {
-//                    // can't get location
-//                    // GPS or Network is not enabled
-//                    // Ask user to enable GPS/network in settings
-//                    gps.showSettingsAlert();
-//                }
-//            }
-
-//            new Thread(new Runnable() {
-//                public void run() {
-//                    try {
-//                        while (sss==null) {
-//                            Thread.sleep(2000);               //code here
-//
-//                            if (gps.canGetLocation())
-//                            {
-//                                sss = gps.getLatitude();
-//
-//                                String abc[] = sss.split(",");
-//                                String def = abc[0];
-//                                String ghi = abc[1];
-//                                Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-//                                        + def + "\nLong: " + ghi, Toast.LENGTH_LONG).show();
-//                                Log.d("lat", def);
-//                                Log.d("long", ghi);
-//                                //double longitude = gps.getLongitude();
-//                                // \n is for new line
-//                            }
-//                            else
-//                            {
-//                                // can't get location
-//                                // GPS or Network is not enabled
-//                                // Ask user to enable GPS/network in settings
-//                                gps.showSettingsAlert();
-//                            }
-//                        }
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//        }
         }
 
 
@@ -177,20 +131,21 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
         final JSONObject jsonObject = new JSONObject();
         try {
-//            String image = getStringImage(bitmap);
+            String image = getStringImage(bitmap);
 
 //            jsonObject.put("deanEmail", "vishal@gmail.com");
 //            jsonObject.put("androidLat", "21.132759");
 //            jsonObject.put("androidLng", "72.715848");
 
-
             jsonObject.put("deanEmail", "vishal@gmail.com");
             jsonObject.put("androidLat", latitude);
             jsonObject.put("androidLng", longitude);
+            jsonObject.put("fileName", imageFileName);
 
 
-//            jsonObject.put(KEY_IMAGE,image);
-//           Log.d("bitmap_image",image);
+
+            jsonObject.put(KEY_IMAGE,image);
+           Log.d("bitmap_image",image);
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
             Log.d("Testing", "Inside Try");
@@ -244,60 +199,6 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 
 
 
-
-
-//        //Showing the progress dialog
-//        String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
-//        final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST,  localhost+"/location/getPlace",
-//
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String s) {
-//                        //Disimissing the progress dialog
-//                        loading.dismiss();
-//                        //Showing toast message of the response
-//                        Toast.makeText(Upload_to_server.this, s , Toast.LENGTH_LONG).show();
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//                        //Dismissing the progress dialog
-//                        loading.dismiss();
-//
-//                        //Showing toast
-//                        Toast.makeText(Upload_to_server.this, volleyError.getMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//                }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                //Converting Bitmap to String
-//                String image = getStringImage(bitmap);
-////                Log.d("bit_image",image);
-//
-//                //Getting Image Name
-//                String name = editTextName.getText().toString().trim();
-//
-//                //Creating parameters
-//                Map<String,String> params = new Hashtable<String, String>();
-//
-//                //Adding parameters
-//                params.put(KEY_IMAGE, image);
-////                params.put(KEY_NAME, name);
-////                params.put("latitude",latitude);
-////                params.put("longitude",longitude);
-//
-//                //returning parameters
-//                return params;
-//            }
-//        };
-//
-//        //Creating a Request Queue
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//
-//        //Adding request to the queue
-////        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -392,7 +293,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File image = File.createTempFile(
