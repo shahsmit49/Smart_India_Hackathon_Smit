@@ -116,8 +116,6 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
 
 
 
-
-
 //                            facultyName.setText(jsonMainNode.optString("deanEmail").toString());
 
 
