@@ -44,7 +44,7 @@ public class Payment_Status extends AppCompatActivity {
         try {
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             String email=settings.getString("email", "").toString();
-            jsonObject.put("deanEmail","vishal@gmail.com");
+            jsonObject.put("deanEmail",email);
 
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {
