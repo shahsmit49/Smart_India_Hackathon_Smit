@@ -67,7 +67,7 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
         String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
 
 
-        String email = getIntent().getStringExtra("Email"); //to get data from bundloe stored in previous activity.....
+        String email = getIntent().getStringExtra("Email");
 //        Toast.makeText(this,email, Toast.LENGTH_LONG).show();
 
         if (email != null) {
@@ -113,7 +113,7 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
                                 DeanName = (jsonChildNode.optString("DeanName").toString());
                                 ExamName = (jsonChildNode.optString("ExamName").toString());
                                 ExamDuty = (jsonChildNode.optString("Role").toString());
-                                DeanAuthorization = (jsonChildNode.optString("DeanAuthorization").toString()); //totransfer to photo.
+                                DeanAuthorization = (jsonChildNode.optString("DeanAuthorization").toString());
 
 
                                 facultyName.setText(jsonChildNode.optString("DeanName").toString());
@@ -171,7 +171,7 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
             Intent i1 = new Intent(Faculty_evaluators_OSDS.this, MainActivity.class);
             startActivity(i1);
         }
-// tried to pass to geo tag page
+
     public void exam_name(View view) {
 
 
@@ -182,7 +182,9 @@ public class Faculty_evaluators_OSDS extends AppCompatActivity {
 
             final JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("deanEmail", "smit@gmail.com");
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                String email=settings.getString("email", "").toString();
+                jsonObject.put("deanEmail", email);
 
                 Log.d("Testing", "Inside Try");
             } catch (JSONException e) {

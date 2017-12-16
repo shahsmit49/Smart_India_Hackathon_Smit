@@ -54,7 +54,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
 
-/
+
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
