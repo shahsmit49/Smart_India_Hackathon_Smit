@@ -50,7 +50,8 @@ public class GPSTracker extends Service implements LocationListener {
         this.mContext = context;
     }
 
-    public void getLocation() {
+    public void getLocation()
+    {
         try {
             canGetLocation=false;
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
@@ -183,9 +184,12 @@ public class GPSTracker extends Service implements LocationListener {
      * Function to get latitude
      * */
 
-    public String getLatitude() {
-        if (location != null) {
-            if (location != null) {
+    public String getLatitude()
+    {
+        if (location != null)
+        {
+            if (location != null)
+            {
 
 //                if (location.isFromMockProvider())
 //                {
@@ -202,7 +206,8 @@ public class GPSTracker extends Service implements LocationListener {
 
      //           }
             }
-            if (location == null) {
+            if (location == null)
+            {
                 progress = new ProgressDialog(mContext);
                 progress.setMessage("Getting Location........");
                 progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);

@@ -19,7 +19,7 @@ public class Faculty_evaluators_count_down extends AppCompatActivity {
 
 
 
-        new CountDownTimer(5000,1000){
+        new CountDownTimer(2000,1000){
             public void onTick (long millis){
 
                 int seconds = (int) (millis / 1000) % 60;

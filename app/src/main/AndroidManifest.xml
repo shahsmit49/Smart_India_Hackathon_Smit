@@ -19,8 +19,10 @@
         android:roundIcon="@mipmap/launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash_screen"
-            android:screenOrientation="portrait">
+        <activity android:name=".WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme1"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

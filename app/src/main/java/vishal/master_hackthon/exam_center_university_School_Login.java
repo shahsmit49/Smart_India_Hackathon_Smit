@@ -46,15 +46,15 @@ public class exam_center_university_School_Login extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private RequestQueue registerQueue;
-    private View mProgressView;
-    private View mLoginFormView;
+//    private View mProgressView;
+//    private View mLoginFormView;
     private String KEY_EMAIL = "username";
     private String KEY_PASSWORD = "password";
     private String token=null;
-    String response;
-    private String EmailVariable;
-    boolean user_login_status = false;
-    public static final String PREFS_NAME = "LoginPrefs";
+    //String response;
+//    private String EmailVariable;
+//    boolean user_login_status = false;
+//    public static final String PREFS_NAME = "LoginPrefs";
     public static String strresponse;
 
     @Override
@@ -66,12 +66,12 @@ public class exam_center_university_School_Login extends AppCompatActivity {
 
         mEmailView = (EditText) findViewById(R.id.input_email_login);
         mPasswordView = (EditText) findViewById(R.id.input_password_login);
-        final String email = mEmailView.getText().toString();
-        final String password = mPasswordView.getText().toString();
+        //final String email = mEmailView.getText().toString();
+        //final String password = mPasswordView.getText().toString();
         /**/
         //
 
-        final SharedPreferences sp = this.getSharedPreferences("user_credential", Context.MODE_PRIVATE);
+        //final SharedPreferences sp = this.getSharedPreferences("user_credential", Context.MODE_PRIVATE);
 
         /**/
 
@@ -115,7 +115,7 @@ public class exam_center_university_School_Login extends AppCompatActivity {
                                     }
                                     try {
                                         if (response.getString("status").equals("success")) {
-                                            String emwa =email;
+                                            //String emwa =email;
 
                                             //           Toast.makeText(Faculty_evaluators_login_activity.this, emwa, Toast.LENGTH_LONG).show();
 
@@ -170,8 +170,8 @@ public class exam_center_university_School_Login extends AppCompatActivity {
 
 
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+//        mLoginFormView = findViewById(R.id.login_form);
+//        mProgressView = findViewById(R.id.login_progress);
 
 //        private void openProfile(){
 //            Intent intent = new Intent(this, Faculty_evaluators_OSDS.class);
@@ -181,23 +181,23 @@ public class exam_center_university_School_Login extends AppCompatActivity {
 
     }
 
-    public void bypass(View view) {
+//    public void bypass(View view) {
+//
+////        Log.d("notification","");
+////        NotificationEventReceiver.setupAlarm(getApplicationContext());
+//
+//
+//    Intent i = new Intent(this,CeoVerification.class);
+//        startActivity(i);
+//
+//    }
 
-//        Log.d("notification","");
-//        NotificationEventReceiver.setupAlarm(getApplicationContext());
-
-
-    Intent i = new Intent(this,CeoVerification.class);
-        startActivity(i);
-
-    }
-
-    public String getEmailVariable() {
-        return EmailVariable;
-    }
-
-    public void setEmailVariable(String emailVariable) {
-        EmailVariable = emailVariable;
-    }
+//    public String getEmailVariable() {
+//        return EmailVariable;
+//    }
+//
+//    public void setEmailVariable(String emailVariable) {
+//        EmailVariable = emailVariable;
+//    }
 
 }

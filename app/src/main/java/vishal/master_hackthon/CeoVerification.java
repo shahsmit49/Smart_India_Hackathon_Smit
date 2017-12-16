@@ -50,24 +50,24 @@ public class CeoVerification extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ceo);
-        ceoFG = (ImageView) findViewById(R.id.ceofg);
-        LLpersonList = (LinearLayout) findViewById(R.id.person_list);
+        ceoFG = (ImageView) findViewById(R.id.ceofg); //to change image on tick
+        LLpersonList = (LinearLayout) findViewById(R.id.person_list); //to make it visible later
         personlistview = (ListView) findViewById(R.id.person_lst);
 
-        final JSONObject jsonObject = new JSONObject();
-        try {
+        //final JSONObject jsonObject = new JSONObject();
+//        try {
+//
+//            jsonObject.put("deanEmail", "vishal@gmail.com");
+////            jsonObject.put("androidLat", "21.132759");
+////            jsonObject.put("androidLng", "72.715848");
+//
+//            Log.d("Testing", "Inside Try");
+//        } catch (JSONException e) {
+//            Log.d("Testing", "Inside Try");
+//            e.printStackTrace();
+//        }
 
-            jsonObject.put("deanEmail", "vishal@gmail.com");
-//            jsonObject.put("androidLat", "21.132759");
-//            jsonObject.put("androidLng", "72.715848");
-
-            Log.d("Testing", "Inside Try");
-        } catch (JSONException e) {
-            Log.d("Testing", "Inside Try");
-            e.printStackTrace();
-        }
-
-        String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
+        //String localhost = getApplicationContext().getResources().getString(R.string.Localhost);
 
 
 
@@ -76,19 +76,22 @@ public class CeoVerification extends AppCompatActivity {
         response = exam_center_university_School_Login.strresponse;
         try {
             JSONObject json = new JSONObject(response);
+            //name of supervisor obtained from server......
             if (json.optString("status").equalsIgnoreCase("success")) {
                 JSONArray arr = json.getJSONArray("data");
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject j = arr.getJSONObject(i);
-                    if (j.getInt("DeanAuthorization") == 1) {
+                    if (j.getInt("DeanAuthorization") == 1) //after first fingerprint is done  ????
+                    {
                         personModels.add(new PersonModel(j.getString("DeanName"), true,j.getString("DeanAadharNo"),j.getString("DeanEmail")));
+                        //adding in arraylist , true and false for different fingerprint photo...
                     }
                     else
                         personModels.add(new PersonModel(j.getString("DeanName"), false,j.getString("DeanAadharNo"),j.getString("DeanEmail")));
 
                 }
                 personAdapter = new PersonAdapter(CeoVerification.this, personModels);
-                personlistview.setAdapter(personAdapter);
+                personlistview.setAdapter(personAdapter);//setting custom adapter........................
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -104,13 +107,13 @@ public class CeoVerification extends AppCompatActivity {
                 startActivityForResult(new Intent(CeoVerification.this, FingerPrintPrank.class), REQ_PERSON_AUTH);
 
             }
-        });
+        }); // for custom adpter intent
         ceoFG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivityForResult(new Intent(CeoVerification.this, FingerPrintPrank.class), REQ_CEO_AUTH);
             }
-        });
+        });// for first card intent
     }
 
     @Override
@@ -123,8 +126,8 @@ public class CeoVerification extends AppCompatActivity {
             } else if (requestCode == REQ_PERSON_AUTH) {
                 personModels.get(selectedPos).setIsvarified(true);
                 personAdapter.notifyDataSetChanged();
-                //send data
 
+                //send data
                 final JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("deanEmail",personModels.get(selectedPos).getEmail());
@@ -162,12 +165,6 @@ public class CeoVerification extends AppCompatActivity {
                 };
                 registerQueue = Volley.newRequestQueue(getApplicationContext());
                 registerQueue.add(jsonObjectRequest);
-
-
-
-
-
-
             }
         }
     }

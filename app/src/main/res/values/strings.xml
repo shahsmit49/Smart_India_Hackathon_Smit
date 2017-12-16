@@ -13,7 +13,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
 
-    <string name="Localhost">http://192.168.43.76:8000</string>
+    <string name="Localhost">http://192.168.43.124:8000</string>
+    <!--<string name="Localhost">http://127.0.0.1:8000</string>-->
     <string name="email">null</string>
     <string name="university_college_school_login">UNIVERSITY/COLLEGE/SCHOOL - LOGIN</string>
     <string name="faculty_teacher_evaluators_osds_login">Faculty/ Teacher/ Evaluators/ OSDS - LOGIN</string>
@@ -22,6 +23,28 @@
 
 
 
+
+
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello Food!</string>
+    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+
+    <string name="slide_2_title">Movie Tickets</string>
+    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+
+    <string name="slide_4_title">World Travel</string>
+    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
 
 
 

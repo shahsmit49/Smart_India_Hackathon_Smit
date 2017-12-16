@@ -10,7 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         /********** get Gps location service LocationManager object ***********/
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 //        Toast.makeText(getBaseContext(), "Gps turned on ", Toast.LENGTH_LONG).show();
     }
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
         System.exit(0);

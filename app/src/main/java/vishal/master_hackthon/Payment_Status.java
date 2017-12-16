@@ -34,7 +34,8 @@ public class Payment_Status extends AppCompatActivity {
     public static final String PREFS_NAME = "LoginPrefs";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.psyment_status);
         final ListView llPayment = (ListView) findViewById(R.id.lv);
@@ -44,7 +45,7 @@ public class Payment_Status extends AppCompatActivity {
         try {
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
             String email=settings.getString("email", "").toString();
-            jsonObject.put("deanEmail","vishal@gmail.com");
+            jsonObject.put("deanEmail","vishal@gmail.com"); // changed today from smit@gmail.com
 
             Log.d("Testing", "Inside Try");
         } catch (JSONException e) {

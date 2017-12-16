@@ -39,7 +39,7 @@ import static android.R.id.message;
  * A login screen that offers login via email/password.
  */
 public class Faculty_evaluators_login_activity extends AppCompatActivity {
-    private static final int REQUEST_READ_CONTACTS = 0;
+    //private static final int REQUEST_READ_CONTACTS = 0;
     private EditText mEmailView;
     private EditText mPasswordView;
     private RequestQueue registerQueue;
@@ -63,13 +63,13 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
         mEmailView = (EditText) findViewById(R.id.input_email_login);
         mPasswordView = (EditText) findViewById(R.id.input_password_login);
-         String email = mEmailView.getText().toString();
+         final String email = mEmailView.getText().toString();
         mailshare=email;
         final String password = mPasswordView.getText().toString();
         /**/
         //
 
-        final SharedPreferences sp = this.getSharedPreferences("user_credential", Context.MODE_PRIVATE);
+        //final SharedPreferences sp = this.getSharedPreferences("user_credential", Context.MODE_PRIVATE);
 
         /**/
 
@@ -122,7 +122,10 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
                                             editor.putString("logged", "logged");
                                            // editor.putString("email", email);
                                             editor.commit();
-
+//                                            if(response.getString("sta1").equals("1"))
+//                                            {
+//                                                Toast.makeText(getApplicationContext(),"hii",Toast.LENGTH_SHORT).show();
+//                                            }
                                             /* **********    EMail   ************** */
 
 
@@ -178,10 +181,10 @@ public class Faculty_evaluators_login_activity extends AppCompatActivity {
 
     }
 
-    public void geotag(View view) {
-        Intent i = new Intent(Faculty_evaluators_login_activity.this,Geo_Tag.class);
-        startActivity(i);
-    }
+//    public void geotag(View view) {
+//        Intent i = new Intent(Faculty_evaluators_login_activity.this,Geo_Tag.class);
+//        startActivity(i);
+//    }
 
     public void bypass(View view) {
 
@@ -198,19 +201,19 @@ Intent i = new Intent(Faculty_evaluators_login_activity.this,Faculty_evaluators_
 //        startActivity(gro);
     }
 
-    public String getEmailVariable() {
-        return EmailVariable;
-    }
+//    public String getEmailVariable() {
+//        return EmailVariable;
+//    }
+//
+//    public void setEmailVariable(String emailVariable) {
+//        EmailVariable = emailVariable;
+//    }
 
-    public void setEmailVariable(String emailVariable) {
-        EmailVariable = emailVariable;
-    }
-
-    @Override
-    public void onBackPressed ()
-    {
-        Intent i1 = new Intent(Faculty_evaluators_login_activity.this, MainActivity.class);
-        startActivity(i1);
-    }
+//    @Override
+//    public void onBackPressed ()
+//    {
+//        Intent i1 = new Intent(Faculty_evaluators_login_activity.this, MainActivity.class);
+//        startActivity(i1);
+//    }
 
 }

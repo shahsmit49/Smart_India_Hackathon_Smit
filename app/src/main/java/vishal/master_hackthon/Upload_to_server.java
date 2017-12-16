@@ -136,7 +136,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
 //            jsonObject.put("androidLat", "21.132759");
 //            jsonObject.put("androidLng", "72.715848");
 
-            jsonObject.put("deanEmail", "vishal@gmail.com");
+            jsonObject.put("deanEmail", "shahmeet285@gmail.com");
             jsonObject.put("androidLat", latitude);
             jsonObject.put("androidLng", longitude);
             jsonObject.put("fileName", imageFileName);
@@ -145,7 +145,9 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
             jsonObject.put(KEY_IMAGE, image);
             Log.d("bitmap_image", image);
             Log.d("Testing", "Inside Try");
+            Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
+            Toast.makeText(this,"upppppppp",Toast.LENGTH_SHORT).show();
             Log.d("Testing", "Inside Try");
             e.printStackTrace();
         }
@@ -161,7 +163,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
                         try {
-                            Log.d("maliyo_response", response.getString("status"));
+                            Log.d("got_response", response.getString("status"));
                             loading.dismiss();
 
                             /***************succefully uploaded**************************/
@@ -182,6 +184,7 @@ public class Upload_to_server extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
+                        Toast.makeText(getApplicationContext(),"pan kai nai malyu",Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(), error.toString() + "Error on response", Toast.LENGTH_LONG).show();
                         Log.d("Error", error.toString());
                     }

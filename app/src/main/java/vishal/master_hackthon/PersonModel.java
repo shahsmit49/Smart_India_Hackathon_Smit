@@ -4,7 +4,8 @@ package vishal.master_hackthon;
  * Created by smit on 01-04-2017.
  */
 
-public class PersonModel {
+public class PersonModel
+{
     String name;
     boolean isvarified;
     String aadhar,email;
